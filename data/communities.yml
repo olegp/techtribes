@@ -265,3 +265,13 @@
     - WordPress
   events: https://www.meetup.com/WPHelsinki/
   logo: wordpress-helsinki.png
+- name: DataTribeCollective
+  location: Helsinki, Finland
+  tags:
+    - Python
+    - SQL
+    - Spark
+    - Data Engineering
+    - AI
+  events: https://www.meetup.com/datatribe-meetup-group/
+  logo: https://github.com/chanukyapekala/datatribecollective/blob/main/logos/DataTribe_logo.png
