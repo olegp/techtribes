@@ -58,7 +58,7 @@ In case you recorded the event, it is a good practice to share the recording wit
 - [koodiklinikka Slack](https://app.slack.com/client/T03BQ3NU9/C0432KDDN) - any tech events
 - [Witted Network Slack](https://app.slack.com/client/T3CT3SL6S/C3C79NG9G) - any tech events
 - [Future Frontend Slack](https://app.slack.com/client/T795YLSUF/C77DNFH4G) - frontend events
-- [DataTribe Slack](https://app.slack.com/client/T066FK780G4) - data events
+- [DataTribe Discord](https://discord.gg/4YHrUTPge4) - data events
 
 ## 8. Code of conduct
 
