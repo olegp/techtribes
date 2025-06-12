@@ -197,6 +197,14 @@
     - Product
   events: https://www.meetup.com/ProductTank-Helsinki/
   logo: product-tank-helsinki.png
+- name: PyData Helsinki
+  location: Helsinki, Finland
+  tags:
+    - Python
+    - Data Science
+    - AI
+  events: https://www.meetup.com/pydatahelsinki/
+  logo: pydata.png
 - name: React Helsinki
   location: Helsinki, Finland
   tags:
