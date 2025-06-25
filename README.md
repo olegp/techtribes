@@ -29,7 +29,7 @@ A sample entry looks like this:
 
 ## Development
 
-Install dendencies:
+Install dependencies:
 
 ```bash
 bundle install
