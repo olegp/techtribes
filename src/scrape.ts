@@ -26,7 +26,7 @@ async function scrape(community: {
       const members = scraped.members;
       const target = scraped.future ? future : past;
       const data = scraped.future || scraped.past;
-      if (!scraped.future) {
+      if (!scraped.future && scraped.past) {
         const [day, month, year] = scraped.past.date.split("/");
         if (
           new Date(+year, +month - 1, +day).getTime() <
