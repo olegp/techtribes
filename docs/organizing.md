@@ -10,11 +10,11 @@ You should also pick a name for your meetup. It should be short and easy to reme
 
 You should aim to have 2-3 co-organizers. This will help you share the workload and ensure that you can always attend the meetup.
 
-## 2. Audience
+## 3. Audience
 
 You should decide who you want your target audience to be and try to have speakers and sponsors that will appeal to them. You should also decide whether you want your meetup to open to everyone or invite only. Examples of invite only meetups are: CTO meetups for current or ex-CTOs, Hacker News meetup for active participants of the site etc. 
 
-## 3. Format
+## 4. Format
 
 The easiest format is to have each meetup hosted by a different sponsor company. The sponsor should take care of providing the venue, food and drinks as well as ideally one technical speaker.
 
@@ -24,9 +24,9 @@ Typically you should aim to have 1-3 talks, each lasting 20-25 minutes, with 5 m
 
 One option is to go the "deep dive" route and book a single speaker that really knows their topic well and is willing to talk 1-1.5h. The longer format allows more interaction with the audience and can be a good option if you want to try an alternative approach.
 
-## 4. Process
+## 5. Process
 
-The key to running a successful tech meetup is having a clear process that you can follow. This will to reduce the amount of time you spend on admin and more time on what you love: learning and building relationships.
+The key to running a successful tech meetup is having a clear process that you can follow. This will reduce the amount of time you spend on admin and more time on what you love: learning and building relationships.
 
 In order to organize a meetup, you need sponsor companies, speakers and attendees. Each can be tracked in a separate queue in a spreadsheet, although for the latter platforms like [Meetabit](https://www.meetabit.com/) can also be used.
 
@@ -40,7 +40,7 @@ Note that for free events you're likely to get a third no shows, so to ensure yo
 
 If you're ever running out of potential sponsors or speakers, you can reach out to individuals you know who may be able to help, ask for help via your mailing list or post about it on social media. It should be possible to find both sponsors and speakers on short notice.
 
-## 5. Promotion
+## 6. Promotion
 
 To promote the event you should use the following channels, in order of preference:
 
@@ -49,22 +49,22 @@ To promote the event you should use the following channels, in order of preferen
 - Relevant online communities, see below
 - Social media, primarily LinkedIn and perhaps Bluesky and X; Facebook is no longer a good channel
 
-## 6. After the event
+## 7. After the event
 
 In case you recorded the event, it is a good practice to share the recording with the participants after the event. That is also a good chance to thank for participation and mention the next event if the date is clear.
 
-## 7. Relevant online communities in Finland
+## 8. Relevant online communities in Finland
 
 - [koodiklinikka Slack](https://app.slack.com/client/T03BQ3NU9/C0432KDDN) - any tech events
 - [Witted Network Slack](https://app.slack.com/client/T3CT3SL6S/C3C79NG9G) - any tech events
 - [Future Frontend Slack](https://app.slack.com/client/T795YLSUF/C77DNFH4G) - frontend events
 - [DataTribe Discord](https://discord.gg/4YHrUTPge4) - data events
 
-## 8. Code of conduct
+## 9. Code of conduct
 
-Althought not needed at the beginning, once your community becomes big enough, you should introduce a code of conduct. You can use the [one from HelsinkiJS](https://github.com/helsinkijs/helsinkijs.org?tab=coc-ov-file) as a reference.
+Although not needed at the beginning, once your community becomes big enough, you should introduce a code of conduct. You can use the [one from HelsinkiJS](https://github.com/helsinkijs/helsinkijs.org?tab=coc-ov-file) as a reference.
 
-## 9. Additional resources
+## 10. Additional resources
 
 - a [series of posts on organizing tech meetups](https://www.toughbyte.com/blog/what-is-a-meetup-and-why-should-i-care-1) on the Toughbyte blog
 - a [podcast on running a tech meetup](https://podcasts.apple.com/dk/podcast/2-oleg-podsechin-on-meetups-and-communities/id1137769226?i=1000373593644)
