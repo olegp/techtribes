@@ -2,76 +2,65 @@ import * as cheerio from "cheerio";
 
 function parseDate(startDate: string) {
   const date = new Date(startDate);
-  if (isNaN(date.getTime())) {
-    return { formattedDate: null, eventDate: null };
-  }
+  if (isNaN(date.getTime())) return null;
 
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
-  const formattedDate = `${day}/${month}/${year}`;
-
-  const eventDate = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate()
-  );
-
-  return { formattedDate, eventDate };
+  return {
+    formattedDate: `${day}/${month}/${year}`,
+    eventDate: new Date(year, date.getMonth(), date.getDate()),
+  };
 }
 
 export default async function scrape(events: string | URL | Request) {
   const response = await fetch(events);
   const html = await response.text();
-
   const $ = cheerio.load(html);
 
   const jsonLdScript = $('script[type="application/ld+json"]').html();
-  let eventData: any = null;
+  if (!jsonLdScript) return { event: null };
 
-  if (jsonLdScript) {
-    try {
-      eventData = JSON.parse(jsonLdScript);
-    } catch (e) {}
+  let eventData: any;
+  try {
+    eventData = JSON.parse(jsonLdScript);
+  } catch {
+    return { event: null };
   }
-
-  let event: { date: string; link: string } | null = null;
 
   if (
-    eventData &&
-    eventData["@type"] === "Organization" &&
-    eventData.events &&
-    Array.isArray(eventData.events)
+    eventData?.["@type"] !== "Organization" ||
+    !Array.isArray(eventData.events)
   ) {
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-
-    let latestEvent: { date: string; link: string } | null = null;
-    let latestEventDate: Date | null = null;
-
-    for (const eventItem of eventData.events) {
-      if (eventItem.startDate) {
-        const { formattedDate, eventDate } = parseDate(eventItem.startDate);
-        if (formattedDate && eventDate) {
-          if (
-            !latestEventDate ||
-            Math.abs(eventDate.getTime() - now.getTime()) <
-              Math.abs(latestEventDate.getTime() - now.getTime())
-          ) {
-            latestEvent = {
-              date: formattedDate,
-              link: eventItem["@id"] || events.toString(),
-            };
-            latestEventDate = eventDate;
-          }
-        }
-      }
-    }
-
-    event = latestEvent;
+    return { event: null };
   }
 
+  const now = new Date();
+  now.setHours(0, 0, 0, 0);
+
+  const validEvents = eventData.events
+    .map((eventItem) => {
+      if (!eventItem.startDate) return null;
+      const parsed = parseDate(eventItem.startDate);
+      if (!parsed) return null;
+
+      return {
+        ...parsed,
+        link: eventItem["@id"] || events.toString(),
+        distance: Math.abs(parsed.eventDate.getTime() - now.getTime()),
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.distance - b.distance);
+
+  const latestEvent = validEvents[0];
+
   return {
-    event,
+    event: latestEvent
+      ? {
+          date: latestEvent.formattedDate,
+          link: latestEvent.link,
+        }
+      : null,
   };
 }
