@@ -50,6 +50,7 @@
                 />
                 {{ community.location | escape }}
               </div>
+              {% if community.members %}
               <div class="list-inline-item text-dark">
                 <img
                   src="{{ site.url }}/assets/icons/users-group.svg"
@@ -60,6 +61,7 @@
                 />
                 {{ community.members }}
               </div>
+              {% endif %}
             </div>
             <div class="mt-3 list mb-0 text-secondary d-block d-sm-none">
               <div class="list-item text-dark">
