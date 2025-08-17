@@ -79,9 +79,9 @@ async function scrape(community: {
   }
 
   const sortByDate = (a: any, b: any) => {
-    const dateA = +a.date.split("/").reverse().join("");
-    const dateB = +b.date.split("/").reverse().join("");
-    return dateA - dateB;
+    const dateA = parseDate(a.date);
+    const dateB = parseDate(b.date);
+    return dateA.getTime() - dateB.getTime();
   };
 
   const sortedUpcoming = upcoming.sort(sortByDate);
