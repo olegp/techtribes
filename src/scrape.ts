@@ -27,8 +27,30 @@ async function scrape(community: {
     }
     if (scraped) {
       const members = scraped.members;
-      const target = scraped.future ? future : past;
-      const data = scraped.future || scraped.past;
+
+      let target: any[];
+      let data: any;
+
+      if (scraped.future) {
+        const [day, month, year] = scraped.future.date.split("/");
+        const eventDate = new Date(+year, +month - 1, +day);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (eventDate >= today) {
+          target = future;
+          data = scraped.future;
+        } else {
+          target = past;
+          data = scraped.future;
+        }
+      } else if (scraped.past) {
+        target = past;
+        data = scraped.past;
+      } else {
+        return;
+      }
+
       if (!scraped.future && scraped.past) {
         const [day, month, year] = scraped.past.date.split("/");
         if (

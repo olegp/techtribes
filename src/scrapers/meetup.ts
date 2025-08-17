@@ -29,6 +29,15 @@ function parseDate(input: string) {
   return `${formattedDay}/${month}/${year}`;
 }
 
+function isDateInFuture(dateString: string): boolean {
+  const [day, month, year] = dateString.split("/");
+  const eventDate = new Date(+year, +month - 1, +day);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return eventDate >= today;
+}
+
 function parseNumber(input: string) {
   return input
     .match(/\d{1,3}(?:,\d{3})*/g)
@@ -43,20 +52,32 @@ export default async function scrape(events: string | URL | Request) {
   const $ = cheerio.load(html);
 
   const futureDate = $("#event-card-e-1 time").text().trim();
-  const future = futureDate
-    ? {
-        date: parseDate(futureDate),
-        link: $("#event-card-e-1").attr("href")?.split("?").shift(),
-      }
-    : undefined;
+  const parsedFutureDate = futureDate ? parseDate(futureDate) : undefined;
+
+  const future =
+    parsedFutureDate && isDateInFuture(parsedFutureDate)
+      ? {
+          date: parsedFutureDate,
+          link: $("#event-card-e-1").attr("href")?.split("?").shift(),
+        }
+      : undefined;
 
   const pastDate = $("#past-event-card-ep-1 time").text().trim();
-  const past = pastDate
+  const parsedPastDate = pastDate ? parseDate(pastDate) : undefined;
+
+  let past = parsedPastDate
     ? {
-        date: parseDate(pastDate),
+        date: parsedPastDate,
         link: $("#past-event-card-ep-1").attr("href")?.split("?").shift(),
       }
     : undefined;
+
+  if (!past && parsedFutureDate && !isDateInFuture(parsedFutureDate)) {
+    past = {
+      date: parsedFutureDate,
+      link: $("#event-card-e-1").attr("href")?.split("?").shift(),
+    };
+  }
 
   return {
     future,
