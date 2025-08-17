@@ -1,0 +1,47 @@
+# Development Workflow
+
+## Setup
+
+```bash
+bundle install    # Install Ruby dependencies
+npm install       # Install Node.js dependencies
+```
+
+## Daily Development
+
+```bash
+npm start         # Start Jekyll dev server with live reload
+npm run scrape    # Scrape latest event data from all communities
+npm run sort      # Sort communities alphabetically
+```
+
+## CSS Management
+
+```bash
+npm run css       # Download and process Tabler CSS
+npm run purgecss  # Remove unused CSS for production
+```
+
+## Data Updates
+
+1. Edit [data/communities.yml](mdc:data/communities.yml) to add/modify communities
+2. Run `npm run sort` to maintain alphabetical order
+3. Run `npm run scrape` to fetch latest event data
+4. Commit both the YAML changes and generated output data
+
+## Testing
+
+- Scrapers have test files in [src/scrapers/](mdc:src/scrapers/) with `.test.ts` extension
+- Run tests with Node.js test runner
+- Verify scraping works for new event platforms before adding communities
+
+## Deployment
+
+- Site builds with `npm run build`
+- Generated files go to `site/_site/`
+- Static assets are optimized and minified for production
+  description:
+  globs:
+  alwaysApply: false
+
+---

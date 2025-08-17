@@ -1,0 +1,42 @@
+# Techtribes Project Structure
+
+This is a Jekyll-based website that lists tech community events worldwide. The main components are:
+
+## Core Files
+
+- [README.md](mdc:README.md) - Project overview and setup instructions
+- [package.json](mdc:package.json) - Node.js dependencies and scripts
+- [Gemfile](mdc:Gemfile) - Ruby dependencies for Jekyll
+
+## Data Management
+
+- [data/communities.yml](mdc:data/communities.yml) - Main data source for community listings
+- [src/scrape.ts](mdc:src/scrape.ts) - Main scraping orchestration script
+- [src/sort.ts](mdc:src/sort.ts) - Sorts communities alphabetically
+
+## Scrapers
+
+- [src/scrapers/](mdc:src/scrapers/) - Contains scrapers for different event platforms:
+  - [meetup.ts](mdc:src/scrapers/meetup.ts) - Meetup.com scraper
+  - [meetabit.ts](mdc:src/scrapers/meetabit.ts) - Meetabit scraper
+  - [luma.ts](mdc:src/scrapers/luma.ts) - Luma scraper
+  - [json.ts](mdc:src/scrapers/json.ts) - Generic JSON scraper
+
+## Site Generation
+
+- [site/\_config.yml](mdc:site/_config.yml) - Jekyll configuration
+- [site/\_layouts/default.html](mdc:site/_layouts/default.html) - Main HTML template
+- [site/\_includes/](mdc:site/_includes/) - Reusable HTML components
+- [site/assets/](mdc:site/assets/) - Static assets (CSS, images, logos)
+
+## Key Scripts
+
+- `npm run scrape` - Scrapes event data from all communities
+- `npm run sort` - Sorts communities alphabetically
+- `npm start` - Runs development server
+- `npm run css` - Downloads and optimizes CSS
+  description:
+  globs:
+  alwaysApply: false
+
+---
