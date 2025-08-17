@@ -8,8 +8,12 @@ export default async function scrapeUrl(events: string | URL | Request) {
     }
 
     const contentType = response.headers.get("content-type");
-    if (!contentType?.includes("application/json")) {
-      console.warn(`Expected JSON but got ${contentType}: ${events}`);
+    const isJsonResponse =
+      contentType?.includes("application/json") ||
+      contentType?.includes("text/plain");
+
+    if (!isJsonResponse) {
+      console.warn(`Expected JSON or text but got ${contentType}: ${events}`);
       return { event: undefined, members: null };
     }
 
