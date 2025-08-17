@@ -110,7 +110,7 @@
     - Architecture
     - Leaderhsip
   events: https://bit.ly/helsinkictos
-  json: >-
+  url: >-
     https://gist.githubusercontent.com/olegp/ffd01ced03cf6632378655e161711754/raw
   logo: helsinki-ctos.jpg
 - name: Helsinki Data Analytics & Science Meetup
@@ -142,7 +142,7 @@
   tags:
     - Hacker News
   events: https://bit.ly/helsinkihn
-  json: >-
+  url: >-
     https://gist.githubusercontent.com/olegp/f34469b65286c057964414c4aaf5bf47/raw
   logo: helsinki-hn.png
 - name: Helsinki Java User Group

@@ -1,12 +1,6 @@
 # TODO
 
-- simplify the data returned by the scrapers, no need for both future & past ✓
-- clean up data format, rename json to url perhaps?
-- fix dark mode - note plus, arrow-left icon colors are likely to break
 - add country, city specific pages, e.g. techtrib.es/fi/helsinki 
 - add home page
 - add tag specific pages, e.g. techtrib.es/javascript
 - add sitemap
-- show counters next to headings, e.g. "Upcoming events (10)"
-- find a more stable solution than uncss
-

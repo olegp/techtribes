@@ -20,7 +20,7 @@ This is a Jekyll-based website that lists tech community events worldwide. The m
   - [meetup.ts](mdc:src/scrapers/meetup.ts) - Meetup.com scraper
   - [meetabit.ts](mdc:src/scrapers/meetabit.ts) - Meetabit scraper
   - [luma.ts](mdc:src/scrapers/luma.ts) - Luma scraper
-  - [json.ts](mdc:src/scrapers/json.ts) - Generic JSON scraper
+  - [url.ts](mdc:src/scrapers/url.ts) - Generic URL scraper for custom APIs
 
 ## Site Generation
 

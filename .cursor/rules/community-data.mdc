@@ -13,7 +13,7 @@ The [data/communities.yml](mdc:data/communities.yml) file contains all community
   events: https://platform.com/community-url
   site: https://community-website.com (optional)
   logo: filename.png
-  json: https://api-endpoint.com (optional)
+  url: https://api-endpoint.com (optional)
 ```
 
 ## Required Fields
@@ -27,7 +27,7 @@ The [data/communities.yml](mdc:data/communities.yml) file contains all community
 ## Optional Fields
 
 - `site`: Community's homepage URL
-- `json`: API endpoint for custom data scraping
+- `url`: API endpoint for custom data scraping
 
 ## Data Validation
 

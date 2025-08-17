@@ -1,4 +1,8 @@
-export default async function scrape(events: string | URL | Request) {
+/**
+ * Scrapes events from a generic URL endpoint that returns JSON data
+ * Used for communities that have custom event APIs or data sources
+ */
+export default async function scrapeUrl(events: string | URL | Request) {
   const response = await fetch(events);
   const data = await response.json();
 
