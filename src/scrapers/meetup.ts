@@ -29,15 +29,6 @@ function parseDate(input: string) {
   return `${formattedDay}/${month}/${year}`;
 }
 
-function isDateInFuture(dateString: string): boolean {
-  const [day, month, year] = dateString.split("/");
-  const eventDate = new Date(+year, +month - 1, +day);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  return eventDate >= today;
-}
-
 function parseNumber(input: string) {
   return input
     .match(/\d{1,3}(?:,\d{3})*/g)
@@ -51,37 +42,29 @@ export default async function scrape(events: string | URL | Request) {
 
   const $ = cheerio.load(html);
 
+  // Try to get the most recent event (either future or past)
   const futureDate = $("#event-card-e-1 time").text().trim();
-  const parsedFutureDate = futureDate ? parseDate(futureDate) : undefined;
-
-  const future =
-    parsedFutureDate && isDateInFuture(parsedFutureDate)
-      ? {
-          date: parsedFutureDate,
-          link: $("#event-card-e-1").attr("href")?.split("?").shift(),
-        }
-      : undefined;
-
   const pastDate = $("#past-event-card-ep-1 time").text().trim();
-  const parsedPastDate = pastDate ? parseDate(pastDate) : undefined;
 
-  let past = parsedPastDate
-    ? {
-        date: parsedPastDate,
-        link: $("#past-event-card-ep-1").attr("href")?.split("?").shift(),
-      }
-    : undefined;
+  let eventDate: string | undefined;
+  let eventLink: string | undefined;
 
-  if (!past && parsedFutureDate && !isDateInFuture(parsedFutureDate)) {
-    past = {
-      date: parsedFutureDate,
-      link: $("#event-card-e-1").attr("href")?.split("?").shift(),
-    };
+  if (futureDate) {
+    eventDate = parseDate(futureDate);
+    eventLink = $("#event-card-e-1").attr("href")?.split("?").shift();
+  } else if (pastDate) {
+    eventDate = parseDate(pastDate);
+    eventLink = $("#past-event-card-ep-1").attr("href")?.split("?").shift();
   }
 
   return {
-    future,
-    past,
+    event:
+      eventDate && eventLink
+        ? {
+            date: eventDate,
+            link: eventLink,
+          }
+        : undefined,
     members: parseNumber($("#member-count-link div").text()),
   };
 }

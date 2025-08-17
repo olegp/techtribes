@@ -56,36 +56,35 @@ export default async function scrape(events: string | URL | Request) {
     .find("li")
     .first();
 
-  const future = futureEvent.length
-    ? {
-        date: parseDate(
-          futureEvent.find(".day-number").text(),
-          futureEvent.find(".month-name").text(),
-          true
-        ),
-        link: "https://www.meetabit.com" + futureEvent.find("a").attr("href"),
-      }
-    : undefined;
-
   const pastEvent = $('.col-sm-7 h3:contains("Previous Event")')
     .next("ul")
     .find("li")
     .first();
 
-  const past = pastEvent.length
-    ? {
-        date: parseDate(
-          pastEvent.find(".day-number").text(),
-          pastEvent.find(".month-name").text(),
-          false
-        ),
-        link: "https://www.meetabit.com" + pastEvent.find("a").attr("href"),
-      }
-    : undefined;
+  let event: { date: string; link: string } | undefined;
+
+  if (futureEvent.length) {
+    event = {
+      date: parseDate(
+        futureEvent.find(".day-number").text(),
+        futureEvent.find(".month-name").text(),
+        true
+      ),
+      link: "https://www.meetabit.com" + futureEvent.find("a").attr("href"),
+    };
+  } else if (pastEvent.length) {
+    event = {
+      date: parseDate(
+        pastEvent.find(".day-number").text(),
+        pastEvent.find(".month-name").text(),
+        false
+      ),
+      link: "https://www.meetabit.com" + pastEvent.find("a").attr("href"),
+    };
+  }
 
   return {
-    future,
-    past,
+    event,
     members: $("h1~ p+ p").text().match(/\d+/g)?.map(Number).pop(),
   };
 }

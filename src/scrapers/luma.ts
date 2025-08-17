@@ -35,8 +35,7 @@ export default async function scrape(events: string | URL | Request) {
     } catch (e) {}
   }
 
-  let future: { date: string; link: string } | null = null;
-  let past: { date: string; link: string } | null = null;
+  let event: { date: string; link: string } | null = null;
 
   if (
     eventData &&
@@ -47,46 +46,33 @@ export default async function scrape(events: string | URL | Request) {
     const now = new Date();
     now.setHours(0, 0, 0, 0);
 
-    let latestFutureEvent: { date: string; link: string } | null = null;
-    let latestPastEvent: { date: string; link: string } | null = null;
+    let latestEvent: { date: string; link: string } | null = null;
+    let latestEventDate: Date | null = null;
 
-    for (const event of eventData.events) {
-      if (event.startDate) {
-        const { formattedDate, eventDate } = parseDate(event.startDate);
+    for (const eventItem of eventData.events) {
+      if (eventItem.startDate) {
+        const { formattedDate, eventDate } = parseDate(eventItem.startDate);
         if (formattedDate && eventDate) {
-          if (eventDate >= now) {
-            if (
-              !latestFutureEvent ||
-              eventDate <
-                new Date(latestFutureEvent.date.split("/").reverse().join("-"))
-            ) {
-              latestFutureEvent = {
-                date: formattedDate,
-                link: event["@id"] || events.toString(),
-              };
-            }
-          } else {
-            if (
-              !latestPastEvent ||
-              eventDate >
-                new Date(latestPastEvent.date.split("/").reverse().join("-"))
-            ) {
-              latestPastEvent = {
-                date: formattedDate,
-                link: event["@id"] || events.toString(),
-              };
-            }
+          // Find the most recent event (closest to today)
+          if (
+            !latestEventDate ||
+            Math.abs(eventDate.getTime() - now.getTime()) <
+              Math.abs(latestEventDate.getTime() - now.getTime())
+          ) {
+            latestEvent = {
+              date: formattedDate,
+              link: eventItem["@id"] || events.toString(),
+            };
+            latestEventDate = eventDate;
           }
         }
       }
     }
 
-    future = latestFutureEvent;
-    past = latestPastEvent;
+    event = latestEvent;
   }
 
   return {
-    future,
-    past,
+    event,
   };
 }

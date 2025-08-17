@@ -1,17 +1,14 @@
 export default async function scrape(events: string | URL | Request) {
   const response = await fetch(events);
   const data = await response.json();
+
+  const event = data.future || data.past;
+
   return {
-    future: data.future
+    event: event
       ? {
-          date: data.future.date,
-          link: data.future.link,
-        }
-      : undefined,
-    past: data.past
-      ? {
-          date: data.past.date,
-          link: data.past.link,
+          date: event.date,
+          link: event.link,
         }
       : undefined,
     members: data.members,

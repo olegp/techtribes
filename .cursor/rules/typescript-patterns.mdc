@@ -17,7 +17,7 @@ Oxford commas are not used in any of the text output to the user.
 All scrapers in [src/scrapers/](mdc:src/scrapers/) follow a consistent pattern:
 
 - Export a default function that takes a URL and returns scraped data
-- Return data in the format: `{ members, future, past, link, date }`
+- Return data in the format: `{ event: { date, link }, members? }`
 - Handle errors gracefully with try-catch blocks
 - Use async/await for HTTP requests
 
@@ -36,6 +36,15 @@ Community objects have this structure:
   json?: string;
 }
 ```
+
+## Sorting Logic
+
+The main scraping logic in [src/scrape.ts](mdc:src/scrape.ts) implements smart sorting:
+
+- **Upcoming events**: Sorted chronologically (earliest upcoming event first)
+- **Past events**: Sorted in reverse chronological order (most recent past event first)
+- **Final output**: Upcoming events first, then past events
+- Events older than 1 year are filtered out as inactive
 
 ## Error Handling
 
