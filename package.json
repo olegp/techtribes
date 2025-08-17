@@ -9,7 +9,7 @@
     "start": "jekyll serve --source site --livereload --host 0.0.0.0",
     "build": "jekyll build --source site",
     "css": "node src/css.ts",
-    "purgecss": "NODE_NO_WARNINGS=1 purgecss --css site/assets/css/tabler.css --content site/**/*.html --output site/assets/css/tabler.css",
+    "purgecss": "purgecss --css site/assets/css/tabler.css --content site/**/*.html --output site/assets/css/tabler.css",
     "scrape": "node src/scrape.ts",
     "sort": "node src/sort.ts",
     "images": "node src/images.ts"
