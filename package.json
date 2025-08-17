@@ -3,16 +3,16 @@
   "version": "1.0.0",
   "type": "module",
   "engines": {
-    "node": ">=22.6.0"
+    "node": ">=24.6.0"
   },
   "scripts": {
     "start": "jekyll serve --source site --livereload --host 0.0.0.0",
     "build": "jekyll build --source site",
-    "css": "node --no-warnings --experimental-strip-types src/css.ts",
+    "css": "node src/css.ts",
     "purgecss": "NODE_NO_WARNINGS=1 purgecss --css site/assets/css/tabler.css --content site/**/*.html --output site/assets/css/tabler.css",
-    "scrape": "node --no-warnings --experimental-strip-types src/scrape.ts",
-    "sort": "node --no-warnings --experimental-strip-types src/sort.ts",
-    "images": "node --no-warnings --experimental-strip-types src/images.ts"
+    "scrape": "node src/scrape.ts",
+    "sort": "node src/sort.ts",
+    "images": "node src/images.ts"
   },
   "author": "Oleg Podsechin",
   "license": "MIT",
