@@ -54,7 +54,7 @@ To download CSS and optimize it, run the command below after the one above:
 
 ```bash
 npm run css
-npm run uncss
+npm run purgecss
 ```
 
 ## Built with

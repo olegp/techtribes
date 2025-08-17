@@ -9,7 +9,7 @@
     "start": "jekyll serve --source site --livereload --host 0.0.0.0",
     "build": "jekyll build --source site",
     "css": "node --no-warnings --experimental-strip-types src/css.ts",
-    "uncss": "NODE_NO_WARNINGS=1 uncss http://0.0.0.0:4000 > site/assets/css/tabler.css",
+    "purgecss": "NODE_NO_WARNINGS=1 purgecss --css site/assets/css/tabler.css --content site/**/*.html --output site/assets/css/tabler.css",
     "scrape": "node --no-warnings --experimental-strip-types src/scrape.ts",
     "sort": "node --no-warnings --experimental-strip-types src/sort.ts",
     "images": "node --no-warnings --experimental-strip-types src/images.ts"
@@ -23,8 +23,8 @@
   },
   "devDependencies": {
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^22.10.2",
-    "sharp": "^0.33.5",
-    "uncss": "^0.17.3"
+    "@types/node": "^24.3.0",
+    "purgecss": "^7.0.2",
+    "sharp": "^0.34.3"
   }
 }
