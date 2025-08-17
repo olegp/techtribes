@@ -1,8 +1,5 @@
 import scrapeUrl from "./url";
 
-/**
- * Test the URL scraper with a sample GitHub gist URL
- */
 (async function () {
   console.log(
     await scrapeUrl(
