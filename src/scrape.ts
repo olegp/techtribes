@@ -3,6 +3,7 @@ import * as yaml from "js-yaml";
 import scrapeJson from "./scrapers/json.ts";
 import scrapeMeetup from "./scrapers/meetup.ts";
 import scrapeMeetabit from "./scrapers/meetabit.ts";
+import scrapeLuma from "./scrapers/luma.ts";
 
 const future: any[] = [];
 const past: any[] = [];
@@ -19,6 +20,8 @@ async function scrape(community: {
       scraped = await scrapeMeetup(events);
     } else if (events.startsWith("https://www.meetabit.com/")) {
       scraped = await scrapeMeetabit(events);
+    } else if (events.startsWith("https://lu.ma/")) {
+      scraped = await scrapeLuma(events);
     } else {
       scraped = await scrapeJson(json);
     }

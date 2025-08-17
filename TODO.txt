@@ -1,6 +1,5 @@
 # TODO
 
-- add Luma scraper, e.g. https://lu.ma/fgvtwmwq?tk=xvNtxt
 - simplify the data returned by the scrapers, no need for both future & past
 - clean up data format, rename json to url perhaps?
 - fix dark mode - note plus, arrow-left icon colors are likely to break
