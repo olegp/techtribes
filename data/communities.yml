@@ -193,12 +193,6 @@
     - Game Development
   events: https://lu.ma/calendar/cal-43KtcM8sGYhTKGf
   logo: igda-finland.png
-- name: Kubernetes Turku
-  location: Turku, Finland
-  tags:
-    - Kubernetes
-  events: https://www.meetup.com/Kubernetes-Turku/
-  logo: kubernetes-turku.png
 - name: Microsoft Security User Group Finland
   location: Helsinki, Finland
   tags:
