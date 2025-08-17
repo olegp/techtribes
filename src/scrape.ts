@@ -7,6 +7,16 @@ import scrapeLuma from "./scrapers/luma.ts";
 
 const events: any[] = [];
 
+function parseDate(dateString: string): Date {
+  const [day, month, year] = dateString.split("/");
+  return new Date(+year, +month - 1, +day);
+}
+
+function isActiveEvent(eventDate: Date): boolean {
+  const oneYearAgo = Date.now() - 31536000000;
+  return eventDate.getTime() >= oneYearAgo;
+}
+
 async function scrape(community: {
   name: string;
   events: string;
@@ -15,6 +25,7 @@ async function scrape(community: {
   try {
     const { events: eventsUrl, url } = community;
     let scraped: any;
+
     if (eventsUrl.startsWith("https://www.meetup.com/")) {
       scraped = await scrapeMeetup(eventsUrl);
     } else if (eventsUrl.startsWith("https://www.meetabit.com/")) {
@@ -25,21 +36,17 @@ async function scrape(community: {
       scraped = await scrapeJson(url);
     }
 
-    if (scraped && scraped.event) {
-      const members = scraped.members;
-      const [day, month, year] = scraped.event.date.split("/");
-      const eventDate = new Date(+year, +month - 1, +day);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
+    if (scraped?.event) {
+      const eventDate = parseDate(scraped.event.date);
 
-      if (eventDate.getTime() < Date.now() - 31536000000) {
+      if (!isActiveEvent(eventDate)) {
         console.warn(`Inactive: ${community.name} (${scraped.event.date})`);
         return;
       }
 
       events.push({
         ...community,
-        members,
+        members: scraped.members,
         date: scraped.event.date,
         event: scraped.event.link,
       });
@@ -51,9 +58,9 @@ async function scrape(community: {
 
 (async function main() {
   const file = await fs.readFile("data/communities.yml", "utf8");
-  const input = yaml.load(file) as any[];
-  const date = (event: any) => +event.date.split("/").reverse().join("");
-  await Promise.all(input.map(scrape));
+  const communities = yaml.load(file) as any[];
+
+  await Promise.all(communities.map(scrape));
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -62,8 +69,7 @@ async function scrape(community: {
   const past: any[] = [];
 
   for (const event of events) {
-    const [day, month, year] = event.date.split("/");
-    const eventDate = new Date(+year, +month - 1, +day);
+    const eventDate = parseDate(event.date);
 
     if (eventDate >= today) {
       upcoming.push(event);
@@ -72,16 +78,18 @@ async function scrape(community: {
     }
   }
 
-  const sortedUpcoming = upcoming.sort((a, b) => date(a) - date(b));
+  const sortByDate = (a: any, b: any) => {
+    const dateA = +a.date.split("/").reverse().join("");
+    const dateB = +b.date.split("/").reverse().join("");
+    return dateA - dateB;
+  };
 
-  const sortedPast = past.sort((a, b) => date(b) - date(a));
-
+  const sortedUpcoming = upcoming.sort(sortByDate);
+  const sortedPast = past.sort((a, b) => sortByDate(b, a));
   const sortedEvents = [...sortedUpcoming, ...sortedPast];
 
   await fs.writeFile(
     "site/_data/output.yml",
-    yaml.dump({
-      events: sortedEvents,
-    })
+    yaml.dump({ events: sortedEvents })
   );
 })();
