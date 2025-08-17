@@ -5,13 +5,6 @@
   events: https://www.meetup.com/agile-finland-helsinki-coaching-circle/
   site: https://www.agile.fi/
   logo: agile-finland.png
-- name: Symposium AI
-  location: Helsinki, Finland
-  tags:
-    - AI
-    - Machine Learning
-  events: https://lu.ma/symposiumai
-  logo: symposium-ai.png
 - name: archipylago
   location: Turku, Finland
   tags:
@@ -52,6 +45,16 @@
     - Databricks
   events: https://www.meetup.com/meetup-group-ssatkbta/
   logo: databricks-user-group-finland.png
+- name: DataTribeCollective
+  location: Helsinki, Finland
+  tags:
+    - Python
+    - SQL
+    - Spark
+    - Data Engineering
+    - AI
+  events: https://www.meetup.com/datatribe-meetup-group/
+  logo: datatribecollective.png
 - name: DevOps Finland
   location: Helsinki, Finland
   tags:
@@ -151,6 +154,12 @@
     - Java
   events: https://www.meetup.com/helsinki-java-user-group/
   logo: helsinki-java-user-group.png
+- name: Helsinki Product Owner
+  location: Helsinki, Finland
+  tags:
+    - Product
+  events: https://www.meetup.com/helsinki-product-owner-meetup/
+  logo: helsinki-product-owner.png
 - name: Helsinki Python
   location: Helsinki, Finland
   tags:
@@ -226,6 +235,13 @@
     - SRE
   events: https://www.meetup.com/SRE-Finland/
   logo: sre-finland.png
+- name: Symposium AI
+  location: Helsinki, Finland
+  tags:
+    - AI
+    - Machine Learning
+  events: https://lu.ma/symposiumai
+  logo: symposium-ai.png
 - name: TampereJS
   location: Tampere, Finland
   tags:
@@ -282,19 +298,3 @@
     - WordPress
   events: https://www.meetup.com/WPHelsinki/
   logo: wordpress-helsinki.png
-- name: DataTribeCollective
-  location: Helsinki, Finland
-  tags:
-    - Python
-    - SQL
-    - Spark
-    - Data Engineering
-    - AI
-  events: https://www.meetup.com/datatribe-meetup-group/
-  logo: datatribecollective.png
-- name: Helsinki Product Owner
-  location: Helsinki, Finland
-  tags:
-    - Product
-  events: https://www.meetup.com/helsinki-product-owner-meetup/
-  logo: helsinki-product-owner.png
