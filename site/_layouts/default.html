@@ -50,7 +50,11 @@
   <body class="theme-dark-auto">
     <div class="page">
       <div class="page-wrapper">
-        {% include header.html %} {{ content }} {% include footer.html %}
+        {% include header.html %}
+        <div class="page-body">
+          <div class="container">{{ content }}</div>
+        </div>
+        {% include footer.html %}
       </div>
     </div>
   </body>

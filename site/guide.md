@@ -1,8 +1,13 @@
-# Organizing a tech meetup
+---
+layout: default
+title: Organizer guide
+---
+
+# Organizer guide
 
 ## 1. Topic and name
 
-You should pick a topic that has a sufficiently wide appeal to attract a broad audience and get enough sponsors. It can be a language, a framework, a technology, an area of AI, etc. 
+You should pick a topic that has a sufficiently wide appeal to attract a broad audience and get enough sponsors. It can be a language, a framework, a technology, an area of AI, etc.
 
 You should also pick a name for your meetup. It should be short and easy to remember and include either the name of the city of the country it is in so it is easy to Google. You may also want to register a domain. You don't necessarily need to create a site right away and instead can redirect the domain to your community page on whichever platform you're using, such as [Meetabit](https://www.meetabit.com/).
 
@@ -12,7 +17,7 @@ You should aim to have 2-3 co-organizers. This will help you share the workload 
 
 ## 3. Audience
 
-You should decide who you want your target audience to be and try to have speakers and sponsors that will appeal to them. You should also decide whether you want your meetup to open to everyone or invite only. Examples of invite only meetups are: CTO meetups for current or ex-CTOs, Hacker News meetup for active participants of the site etc. 
+You should decide who you want your target audience to be and try to have speakers and sponsors that will appeal to them. You should also decide whether you want your meetup to open to everyone or invite only. Examples of invite only meetups are: CTO meetups for current or ex-CTOs, Hacker News meetup for active participants of the site etc.
 
 ## 4. Format
 

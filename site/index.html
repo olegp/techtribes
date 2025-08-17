@@ -3,56 +3,44 @@ layout: default
 title: Techtribes
 ---
 
-<div class="page-header d-print-none">
-  <div class="container">
-    <div class="row g-2 align-items-center">
-      <div class="col">
-        <h2 class="page-title">Upcoming events</h2>
-      </div>
-      <div class="col-auto ms-auto d-print-none">
-        <a
-          href="https://github.com/olegp/techtribes?tab=readme-ov-file#add-a-community"
-          class="btn btn-primary"
-        >
-          <img
-            src="{{ site.url }}/assets/icons/plus.svg"
-            width="20"
-            height="20"
-            class="icon"
-            alt="Plus sign"
-          />
-          Add a community
-        </a>
-      </div>
+<div class="page-header d-print-none mt-1 mb-3">
+  <div class="row g-2 align-items-center">
+    <div class="col">
+      <h2 class="page-title">Upcoming events</h2>
+    </div>
+    <div class="col-auto ms-auto d-print-none">
+      <a
+        href="https://github.com/olegp/techtribes?tab=readme-ov-file#add-a-community"
+        class="btn btn-primary"
+      >
+        <img
+          src="{{ site.url }}/assets/icons/plus.svg"
+          width="20"
+          height="20"
+          class="icon"
+          alt="Plus sign"
+        />
+        Add a community
+      </a>
     </div>
   </div>
 </div>
-<div class="page-body">
-  <div class="container">
-    <div class="row row-cards">
-      <div class="space-y">
-        {% for community in site.data.output.future %} {% include card.html %}
-        {% endfor %}
-      </div>
+<div class="row row-cards">
+  <div class="space-y">
+    {% for community in site.data.output.future %} {% include card.html %} {%
+    endfor %}
+  </div>
+</div>
+<div class="page-header d-print-none mt-1 mb-3">
+  <div class="row g-2 align-items-center">
+    <div class="col">
+      <h2 class="page-title">Past events</h2>
     </div>
   </div>
 </div>
-<div class="page-header d-print-none">
-  <div class="container">
-    <div class="row g-2 align-items-center">
-      <div class="col">
-        <h2 class="page-title">Past events</h2>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="page-body">
-  <div class="container">
-    <div class="row row-cards">
-      <div class="space-y">
-        {% for community in site.data.output.past %} {% include card.html %} {%
-        endfor %}
-      </div>
-    </div>
+<div class="row row-cards">
+  <div class="space-y">
+    {% for community in site.data.output.past %} {% include card.html %} {%
+    endfor %}
   </div>
 </div>
