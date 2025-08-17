@@ -187,6 +187,12 @@
   events: https://www.meetup.com/HelsinkiOS-Mac-and-iOS-Developers/
   site: https://helsinkios.org/
   logo: helsinkios.png
+- name: IGDA Finland
+  location: Helsinki, Finland
+  tags:
+    - Game Development
+  events: https://lu.ma/calendar/cal-43KtcM8sGYhTKGf
+  logo: igda-finland.png
 - name: Kubernetes Turku
   location: Turku, Finland
   tags:
