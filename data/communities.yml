@@ -264,13 +264,6 @@
     - WordPress
   events: https://www.meetup.com/turku-wordpress-meetup/
   logo: turku-wordpress-meetup.png
-- name: TurkuSec
-  location: Turku, Finland
-  tags:
-    - Security
-  events: https://www.meetup.com/turkusec/
-  site: https://turkusec.fi/
-  logo: turkusec.png
 - name: Vibe Coding Finland
   location: Helsinki, Finland
   tags:
