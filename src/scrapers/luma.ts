@@ -53,7 +53,6 @@ export default async function scrape(events: string | URL | Request) {
       if (eventItem.startDate) {
         const { formattedDate, eventDate } = parseDate(eventItem.startDate);
         if (formattedDate && eventDate) {
-          // Find the most recent event (closest to today)
           if (
             !latestEventDate ||
             Math.abs(eventDate.getTime() - now.getTime()) <

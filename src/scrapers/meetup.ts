@@ -42,7 +42,6 @@ export default async function scrape(events: string | URL | Request) {
 
   const $ = cheerio.load(html);
 
-  // Try to get the most recent event (either future or past)
   const futureDate = $("#event-card-e-1 time").text().trim();
   const pastDate = $("#past-event-card-ep-1 time").text().trim();
 
