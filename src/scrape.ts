@@ -1,6 +1,6 @@
 import { promises as fs } from "fs";
 import * as yaml from "js-yaml";
-import scrapeUrl from "./scrapers/url.ts";
+import scrapeJson from "./scrapers/json.ts";
 import scrapeMeetup from "./scrapers/meetup.ts";
 import scrapeMeetabit from "./scrapers/meetabit.ts";
 import scrapeLuma from "./scrapers/luma.ts";
@@ -22,7 +22,7 @@ async function scrape(community: {
     } else if (eventsUrl.startsWith("https://lu.ma/")) {
       scraped = await scrapeLuma(eventsUrl);
     } else if (url) {
-      scraped = await scrapeUrl(url);
+      scraped = await scrapeJson(url);
     }
 
     if (scraped && scraped.event) {
