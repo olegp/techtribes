@@ -3,13 +3,61 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{ site.title | escape }}</title>
-    <meta name="description" content="{{ site.description | escape }}" />
-    <meta property="og:title" content="{{ site.title | escape }}" />
+    <title>{{ page.title | default: site.title | escape }}</title>
+    <meta
+      name="description"
+      content="{{ page.description | default: site.description | escape }}"
+    />
+
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
+    <meta
+      property="og:title"
+      content="{{ page.title | default: site.title | escape }}"
+    />
+    <meta
+      property="og:description"
+      content="{{ page.description | default: site.description | escape }}"
+    />
     <meta property="og:image" content="{{ site.url }}/assets/social/og.png" />
-    <meta property="og:url" content="{{ site.url }}" />
-    <meta property="og:description" content="{{ site.description | escape }}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="{{ site.title | escape }}" />
+    <meta property="og:site_name" content="Techtribes" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{ site.url }}{{ page.url }}" />
+    <meta
+      property="twitter:title"
+      content="{{ page.title | default: site.title | escape }}"
+    />
+    <meta
+      property="twitter:description"
+      content="{{ page.description | default: site.description | escape }}"
+    />
+    <meta
+      property="twitter:image"
+      content="{{ site.url }}/assets/social/og.png"
+    />
+    <meta property="twitter:image:alt" content="{{ site.title | escape }}" />
+
+    <meta name="author" content="Techtribes" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#206bc4" />
+
+    <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Techtribes",
+        "description": "{{ site.description | escape }}",
+        "url": "{{ site.url }}"
+      }
+    </script>
+
     {% assign file = site.static_files | where: "path", "/assets/css/tabler.css"
     | first %}
     <link

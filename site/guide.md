@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Organizer guide
+description: Learn how to organize successful tech meetups and communities. Comprehensive guide covering topics, co-organizers, audience, format, process, promotion and best practices.
 ---
 
 # Organizer guide
