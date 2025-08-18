@@ -28,7 +28,7 @@ description: Discover active tech communities and meetups in Finland. Find upcom
 </div>
 <div class="row row-cards">
   <div class="space-y">
-    {% assign today = 'now' | date: '%s' %} {% for community in
+    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community in
     site.data.output.events %} {% assign event_date = community.date | split:
     '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:
     event_date[1] | append: '-' | append: event_date[0] | date: '%s' %} {% if
@@ -44,7 +44,7 @@ description: Discover active tech communities and meetups in Finland. Find upcom
 </div>
 <div class="row row-cards">
   <div class="space-y">
-    {% assign today = 'now' | date: '%s' %} {% for community in
+    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community in
     site.data.output.events %} {% assign event_date = community.date | split:
     '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:
     event_date[1] | append: '-' | append: event_date[0] | date: '%s' %} {% if
