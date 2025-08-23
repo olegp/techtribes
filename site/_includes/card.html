@@ -48,7 +48,7 @@
                   class="icon icon-inline"
                   alt="Map pin"
                 />
-                {{ community.location | escape }}
+                {% if community.eventLocation %}{{ community.eventLocation | escape }}{% else %}{{ community.location | escape }}{% endif %}
               </div>
               {% if community.members %}
               <div class="list-inline-item text-dark">
@@ -72,7 +72,7 @@
                   class="icon icon-inline"
                   alt="Map pin"
                 />
-                {{ community.location | escape }}
+                {% if community.eventLocation %}{{ community.eventLocation | escape }}{% else %}{{ community.location | escape }}{% endif %}
               </div>
               <div class="list-item text-dark">
                 <img

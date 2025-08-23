@@ -46,9 +46,30 @@ export default async function scrape(events: string | URL | Request) {
     ? $("#event-card-e-1").attr("href")?.split("?")[0]
     : $("#past-event-card-ep-1").attr("href")?.split("?")[0];
 
+  let eventLocation: string | undefined;
+  
+  const eventCard = futureDate ? $("#event-card-e-1") : $("#past-event-card-ep-1");
+  if (eventCard.length) {
+    const locationElement = eventCard.find('.text-gray6, [class*="location"]').first();
+    const locationText = locationElement.text().trim();
+    
+    if (locationText && !locationText.match(/\d+:\d+\s*(AM|PM|EEST|EET|UTC)/i)) {
+      const cityMatch = locationText.match(/,\s*([^,]+)$/);
+      if (cityMatch) {
+        const city = cityMatch[1].trim();
+        if (!city.match(/\d+:\d+\s*(AM|PM|EEST|EET|UTC)/i)) {
+          eventLocation = `${city}, Finland`;
+        }
+      }
+    }
+  }
+  
+
   return {
     event:
-      eventDate && eventLink ? { date: eventDate, link: eventLink } : undefined,
+      eventDate && eventLink 
+        ? { date: eventDate, link: eventLink, location: eventLocation } 
+        : undefined,
     members: parseNumber($("#member-count-link div").text()),
   };
 }

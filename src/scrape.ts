@@ -49,6 +49,7 @@ async function scrape(community: {
         members: scraped.members,
         date: scraped.event.date,
         event: scraped.event.link,
+        eventLocation: scraped.event.location,
       });
     }
   } catch (error) {
