@@ -26,7 +26,7 @@ The easiest format is to have each meetup hosted by a different sponsor company.
 
 The events should take place in the evening on weekdays, Fridays are best avoided since attendees may have other plans then. 17:30-18:00 is a good time to start the event. Some people are often a bit late, so you should aim to start the talks at 18:15. If you start early (17:30), then food can be available already and you can finish it after the talk(s). Other option is to have the food arrive only after the talks.
 
-Typically you should aim to have 1-3 talks, each lasting 20-25 minutes, with 5 minutes for questions. Let the speakers know about this in advance and remind them before the talk starts. It is worth having a longer break in between some talks if you have more than 2 and to leave time for socializing afterwards.
+Typically you should aim to have 1-3 talks, each lasting 20-25 minutes, with 5 minutes for questions. Let the speakers know about this in advance and remind them before the talk starts. It is worth having a longer break in between some talks if you have more than 2 and to leave time for socializing afterwards. You may also want to create a guide for speakers that you can share in advance. You can use [the one from HelsinkiJS](https://github.com/helsinkijs/helsinkijs.org/blob/master/README.md#speaker-guide) as reference.
 
 One option is to go the "deep dive" route and book a single speaker that really knows their topic well and is willing to talk 1-1.5h. The longer format allows more interaction with the audience and can be a good option if you want to try an alternative approach.
 
