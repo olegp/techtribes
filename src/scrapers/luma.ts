@@ -18,49 +18,54 @@ export default async function scrape(events: string | URL | Request) {
   const html = await response.text();
   const $ = cheerio.load(html);
 
-  const jsonLdScript = $('script[type="application/ld+json"]').html();
-  if (!jsonLdScript) return { event: null };
+  const content = $("script#__NEXT_DATA__").html();
+  if (!content) return { event: null };
 
-  let eventData: any;
+  let nextData: any;
   try {
-    eventData = JSON.parse(jsonLdScript);
+    nextData = JSON.parse(content);
   } catch {
     return { event: null };
   }
 
-  if (
-    eventData?.["@type"] !== "Organization" ||
-    !Array.isArray(eventData.events)
-  ) {
+  const eventDates = nextData.props?.pageProps?.initialData?.data?.event_start_ats;
+  if (!eventDates || !Array.isArray(eventDates) || eventDates.length === 0) {
     return { event: null };
   }
 
   const now = new Date();
   now.setHours(0, 0, 0, 0);
 
-  const validEvents = eventData.events
-    .map((eventItem) => {
-      if (!eventItem.startDate) return null;
-      const parsed = parseDate(eventItem.startDate);
-      if (!parsed) return null;
+  const allEvents = eventDates
+    .map((dateString) => {
+      const eventDate = new Date(dateString);
+      if (isNaN(eventDate.getTime())) return null;
+
+      const day = String(eventDate.getDate()).padStart(2, "0");
+      const month = String(eventDate.getMonth() + 1).padStart(2, "0");
+      const year = eventDate.getFullYear();
+      const formattedDate = `${day}/${month}/${year}`;
+
+      const normalizedDate = new Date(year, eventDate.getMonth(), eventDate.getDate());
 
       return {
-        ...parsed,
-        link: eventItem["@id"] || events.toString(),
-        distance: Math.abs(parsed.eventDate.getTime() - now.getTime()),
+        formattedDate,
+        eventDate: normalizedDate,
+        link: events.toString(),
+        distance: Math.abs(normalizedDate.getTime() - now.getTime()),
       };
     })
-    .filter(Boolean)
-    .sort((a, b) => a.distance - b.distance);
+    .filter(Boolean);
 
-  const latestEvent = validEvents[0];
+  if (allEvents.length === 0) return { event: null };
+
+  allEvents.sort((a, b) => a.distance - b.distance);
+  const latestEvent = allEvents[0];
 
   return {
-    event: latestEvent
-      ? {
-          date: latestEvent.formattedDate,
-          link: latestEvent.link,
-        }
-      : null,
+    event: {
+      date: latestEvent.formattedDate,
+      link: latestEvent.link,
+    },
   };
 }
