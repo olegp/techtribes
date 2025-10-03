@@ -1,4 +1,4 @@
-import scrapeMeetabit from "./meetabit";
+import scrapeMeetabit from "./meetabit.ts";
 
 (async function () {
   console.log(
