@@ -306,3 +306,9 @@
     - WordPress
   events: https://www.meetup.com/WPHelsinki/
   logo: wordpress-helsinki.png
+- name: Wolt Tech Talks
+  location: Helsinki, Finland
+  tags:
+    - Software Development
+  events: https://www.meetup.com/wolttechtalks/
+  logo: wolt-tech-talks.png
