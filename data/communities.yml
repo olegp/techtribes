@@ -312,3 +312,11 @@
     - Software Development
   events: https://www.meetup.com/wolttechtalks/
   logo: wolt-tech-talks.png
+- name: Helsinki PostgreSQL Meetup
+  location: Helsinki, Finland
+  tags:
+    - Databases
+    - PostgreSQL
+    - SQL
+  events: https://www.meetup.com/helsinki-postgresql-meetup/
+  logo: helsinki-postgresql-meetup.png
