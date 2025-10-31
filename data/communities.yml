@@ -320,3 +320,11 @@
     - SQL
   events: https://www.meetup.com/helsinki-postgresql-meetup/
   logo: helsinki-postgresql-meetup.png
+- name: Finnish Game Industry QA Meetup
+  location: Helsinki, Finland
+  tags:
+    - QA
+    - Testing
+    - Game Industry
+  events: https://www.meetup.com/finnish-game-industry-qa-meetup-group/
+  logo: finnish-game-industry-qa-meetup.png
