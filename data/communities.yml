@@ -263,7 +263,7 @@
 - name: React Helsinki
   location: Helsinki, Finland
   tags:
-    - react
+    - React
   events: https://www.meetabit.com/communities/react-helsinki
   logo: react-helsinki.png
 - name: SRE Finland
