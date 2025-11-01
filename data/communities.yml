@@ -240,6 +240,11 @@
   events: https://www.meetup.com/HelsinkiOS-Mac-and-iOS-Developers/
   site: https://helsinkios.org/
   logo: helsinkios.png
+- name: Hive Helsinki
+  location: Helsinki, Finland
+  tags: []
+  events: https://luma.com/hivehelsinki
+  logo: hive-helsinki.png
 - name: IGDA Finland
   location: Helsinki, Finland
   tags:
