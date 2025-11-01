@@ -216,6 +216,13 @@
   tags:
     - Security
   events: https://www.meetup.com/helsinki-security-meetup/
+- name: Helsinki Snowflake User Group | Meetup
+  location: Helsinki, Finland
+  tags:
+    - Snowflake
+    - Data
+  events: https://www.meetup.com/helsinki-snowflake-user-group/
+  logo: helsinki-snowflake-user-group-meetup.png
 - name: HelsinkiJS
   location: Helsinki, Finland
   tags:
