@@ -35,8 +35,13 @@ export default async function scrape(events: string | URL | Request) {
 
   const cleanLink = eventLink?.split("?")[0];
 
+  const name = $('meta[property="og:title"]').attr("content") || $("title").text().replace(" | Meetup", "").trim();
+  const logo = $('meta[property="og:image"]').attr("content");
+
   return {
     event: eventDate && cleanLink ? { date: eventDate, link: cleanLink } : undefined,
     members: parseNumber($("#member-count-link").text()),
+    name,
+    logo,
   };
 }
