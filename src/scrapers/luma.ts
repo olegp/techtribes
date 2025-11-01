@@ -1,18 +1,5 @@
 import * as cheerio from "cheerio";
 
-function parseDate(startDate: string) {
-  const date = new Date(startDate);
-  if (isNaN(date.getTime())) return null;
-
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return {
-    formattedDate: `${day}/${month}/${year}`,
-    eventDate: new Date(year, date.getMonth(), date.getDate()),
-  };
-}
-
 export default async function scrape(events: string | URL | Request) {
   const response = await fetch(events);
   const html = await response.text();
@@ -55,12 +42,12 @@ export default async function scrape(events: string | URL | Request) {
         distance: Math.abs(normalizedDate.getTime() - now.getTime()),
       };
     })
-    .filter(Boolean);
+    .filter((event): event is NonNullable<typeof event> => event !== null);
 
   if (allEvents.length === 0) return { event: null };
 
   allEvents.sort((a, b) => a.distance - b.distance);
-  const latestEvent = allEvents[0];
+  const latestEvent = allEvents[0]!;
 
   return {
     event: {
