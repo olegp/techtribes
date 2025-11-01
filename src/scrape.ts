@@ -30,7 +30,7 @@ async function scrape(community: {
       scraped = await scrapeMeetup(eventsUrl);
     } else if (eventsUrl.startsWith("https://www.meetabit.com/")) {
       scraped = await scrapeMeetabit(eventsUrl);
-    } else if (eventsUrl.startsWith("https://lu.ma/")) {
+    } else if (eventsUrl.startsWith("https://luma.com/")) {
       scraped = await scrapeLuma(eventsUrl);
     } else if (url) {
       scraped = await scrapeJson(url);
