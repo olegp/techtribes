@@ -51,7 +51,7 @@ If you're ever running out of potential sponsors or speakers, you can reach out 
 To promote the event you should use the following channels, in order of preference:
 
 - Your mailing list or whatever the platform you're using provides for making announcements
-- [Techtribes](https://github.com/olegp/techtribes?tab=readme-ov-file#add-a-community)
+- [Techtribes](https://github.com/olegp/techtribes?tab=readme-ov-file#add-community)
 - Relevant online communities, see below
 - Social media, primarily LinkedIn and perhaps Bluesky and X; Facebook is no longer a good channel
 

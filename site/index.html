@@ -11,7 +11,7 @@ description: Discover active tech communities and meetups in Finland. Find upcom
     </div>
     <div class="col-auto ms-auto d-print-none">
       <a
-        href="https://github.com/olegp/techtribes?tab=readme-ov-file#add-a-community"
+        href="https://github.com/olegp/techtribes?tab=readme-ov-file#add-community"
         class="btn btn-primary"
       >
         <img
@@ -28,8 +28,8 @@ description: Discover active tech communities and meetups in Finland. Find upcom
 </div>
 <div class="row row-cards">
   <div class="space-y">
-    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community in
-    site.data.output.events %} {% assign event_date = community.date | split:
+    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community
+    in site.data.output.events %} {% assign event_date = community.date | split:
     '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:
     event_date[1] | append: '-' | append: event_date[0] | date: '%s' %} {% if
     event_timestamp >= today %} {% include card.html %} {% endif %} {% endfor %}
@@ -44,8 +44,8 @@ description: Discover active tech communities and meetups in Finland. Find upcom
 </div>
 <div class="row row-cards">
   <div class="space-y">
-    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community in
-    site.data.output.events %} {% assign event_date = community.date | split:
+    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community
+    in site.data.output.events %} {% assign event_date = community.date | split:
     '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:
     event_date[1] | append: '-' | append: event_date[0] | date: '%s' %} {% if
     event_timestamp < today %} {% include card.html %} {% endif %} {% endfor %}
