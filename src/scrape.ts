@@ -4,6 +4,7 @@ import scrapeJson from "./scrapers/json.ts";
 import scrapeMeetup from "./scrapers/meetup.ts";
 import scrapeMeetabit from "./scrapers/meetabit.ts";
 import scrapeLuma from "./scrapers/luma.ts";
+import { loadCommunities } from "./utils.ts";
 
 const events: any[] = [];
 
@@ -61,8 +62,7 @@ async function scrape(community: {
 }
 
 (async function main() {
-  const file = await fs.readFile("data/communities.yml", "utf8");
-  const communities = yaml.load(file) as any[];
+  const communities = await loadCommunities();
 
   await Promise.all(communities.map(scrape));
 

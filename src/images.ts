@@ -1,39 +1,14 @@
-import path from "path";
-import { promises as fs } from "fs";
-import yaml from "js-yaml";
-import sharp from "sharp";
-
-interface Community {
-  name: string;
-  logo?: string;
-  [key: string]: any;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
-async function process(url: string, file: string) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch image: ${response.statusText}`);
-  }
-
-  const output = await sharp(await response.arrayBuffer())
-    .resize(128, 128, { fit: "cover" })
-    .png({ quality: 80, compressionLevel: 9 })
-    .toBuffer();
-
-  await fs.mkdir(path.dirname(file), { recursive: true });
-  await fs.writeFile(file, output);
-}
+import type { Community } from "./utils.ts";
+import {
+  LOGOS_DIR,
+  slugify,
+  processLogo,
+  loadCommunities,
+  saveCommunities,
+} from "./utils.ts";
 
 (async function main() {
-  const yamlContent = await fs.readFile("data/communities.yml", "utf8");
-  const communities = yaml.load(yamlContent) as Community[];
+  const communities = await loadCommunities();
 
   for (const community of communities) {
     if (!community.logo || !community.name) continue;
@@ -43,12 +18,12 @@ async function process(url: string, file: string) {
       continue;
 
     const slug = slugify(community.name);
-    const file = `site/assets/logos/${slug}.png`;
+    const file = `${LOGOS_DIR}${slug}.png`;
 
     console.log(`${slug}.png`);
-    await process(logoUrl, file);
+    await processLogo(logoUrl, file);
     community.logo = `${slug}.png`;
   }
 
-  await fs.writeFile("data/communities.yml", yaml.dump(communities), "utf8");
+  await saveCommunities(communities);
 })();

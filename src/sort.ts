@@ -1,11 +1,7 @@
-import { promises as fs } from "fs";
-import * as yaml from "js-yaml";
-
-const DATA_FILE = "data/communities.yml";
+import { loadCommunities, saveCommunities } from "./utils.ts";
 
 (async function main() {
-  const file = await fs.readFile(DATA_FILE, "utf8");
-  const input = yaml.load(file) as any[];
+  const input = await loadCommunities();
 
   const names = new Set<string>();
   input.forEach((item) => {
@@ -16,5 +12,5 @@ const DATA_FILE = "data/communities.yml";
   });
 
   const sorted = input.sort((a, b) => a.name.localeCompare(b.name));
-  await fs.writeFile(DATA_FILE, yaml.dump(sorted));
+  await saveCommunities(sorted);
 })();

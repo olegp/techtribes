@@ -1,41 +1,12 @@
-import { promises as fs } from "fs";
-import path from "path";
-import yaml from "js-yaml";
-import sharp from "sharp";
 import scrape from "./scrapers/meetup.ts";
-
-interface Community {
-  name: string;
-  location: string;
-  tags: string[];
-  events: string;
-  site?: string;
-  logo?: string;
-  url?: string;
-  [key: string]: any;
-}
-
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-}
-
-async function processLogo(url: string, file: string) {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch image: ${response.statusText}`);
-  }
-
-  const output = await sharp(await response.arrayBuffer())
-    .resize(128, 128, { fit: "cover" })
-    .png({ quality: 80, compressionLevel: 9 })
-    .toBuffer();
-
-  await fs.mkdir(path.dirname(file), { recursive: true });
-  await fs.writeFile(file, output);
-}
+import type { Community } from "./utils.ts";
+import {
+  LOGOS_DIR,
+  slugify,
+  processLogo,
+  loadCommunities,
+  saveCommunities,
+} from "./utils.ts";
 
 async function main() {
   const url = process.argv[2];
@@ -63,8 +34,7 @@ async function main() {
   console.log(`Found: ${data.name}`);
   console.log(`Members: ${data.members || "unknown"}`);
 
-  const yamlContent = await fs.readFile("data/communities.yml", "utf8");
-  const communities = yaml.load(yamlContent) as Community[];
+  const communities = await loadCommunities();
 
   const exists = communities.find((c) => c.name === data.name || c.events === url);
   if (exists) {
@@ -90,24 +60,23 @@ async function main() {
   communities.push(newCommunity);
 
   const sorted = communities.sort((a, b) => a.name.localeCompare(b.name));
-  await fs.writeFile("data/communities.yml", yaml.dump(sorted));
+  await saveCommunities(sorted);
 
   console.log(`Added ${data.name} to communities.yml`);
 
   if (data.logo) {
     const slug = slugify(data.name);
-    const file = `site/assets/logos/${slug}.png`;
+    const file = `${LOGOS_DIR}${slug}.png`;
 
     console.log(`Downloading and processing logo...`);
     await processLogo(data.logo, file);
 
-    const updatedYaml = await fs.readFile("data/communities.yml", "utf8");
-    const updatedCommunities = yaml.load(updatedYaml) as Community[];
+    const updatedCommunities = await loadCommunities();
 
     const community = updatedCommunities.find((c) => c.name === data.name);
     if (community) {
       community.logo = `${slug}.png`;
-      await fs.writeFile("data/communities.yml", yaml.dump(updatedCommunities));
+      await saveCommunities(updatedCommunities);
       console.log(`Logo saved as ${slug}.png`);
     }
   }

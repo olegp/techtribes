@@ -1,9 +1,7 @@
-import * as cheerio from "cheerio";
+import { loadHtml, formatDate } from "../utils.ts";
 
 export default async function scrape(events: string | URL | Request) {
-  const response = await fetch(events);
-  const html = await response.text();
-  const $ = cheerio.load(html);
+  const $ = await loadHtml(events);
 
   const content = $("script#__NEXT_DATA__").html();
   if (!content) return { event: null };
@@ -28,12 +26,9 @@ export default async function scrape(events: string | URL | Request) {
       const eventDate = new Date(dateString);
       if (isNaN(eventDate.getTime())) return null;
 
-      const day = String(eventDate.getDate()).padStart(2, "0");
-      const month = String(eventDate.getMonth() + 1).padStart(2, "0");
-      const year = eventDate.getFullYear();
-      const formattedDate = `${day}/${month}/${year}`;
+      const formattedDate = formatDate(eventDate);
 
-      const normalizedDate = new Date(year, eventDate.getMonth(), eventDate.getDate());
+      const normalizedDate = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
 
       return {
         formattedDate,

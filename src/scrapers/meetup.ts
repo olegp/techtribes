@@ -1,12 +1,10 @@
 import * as cheerio from "cheerio";
+import { formatDate } from "../utils.ts";
 
 function parseDate(dateTime: string) {
   const cleanDateTime = dateTime.replace(/\[.*?\]$/, '');
   const date = new Date(cleanDateTime);
-  const day = String(date.getDate()).padStart(2, "0");
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const year = date.getFullYear();
-  return `${day}/${month}/${year}`;
+  return formatDate(date);
 }
 
 function parseNumber(input: string) {
