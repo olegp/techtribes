@@ -2,7 +2,7 @@
 
 ## Overview
 
-A site listing active tech community events in Finland. Events are updated automatically once a day. Supports Meetabit, Meetup.com and Luma.
+A site listing active tech community events in Finland. Events are updated automatically once a day. Supports [Meetabit](https://www.meetabit.com/), [Meetup.com](https://www.meetup.com/), [Luma](https://luma.com/) and a [custom JSON format](https://gist.github.com/olegp/f34469b65286c057964414c4aaf5bf47).
 
 ## Add community
 
@@ -12,6 +12,8 @@ First, install dependencies:
 npm install
 ```
 
+Then, add a community by URL:
+
 ```bash
 npm run add <url> [tags]
 ```
@@ -20,19 +22,7 @@ Example: `npm run add https://www.meetabit.com/communities/helsinkijs "JavaScrip
 
 Once done, create a pull request with the changes.
 
-## Development
-
-```bash
-bundle install
-```
-
-```bash
-npm run scrape
-npm run images
-npm start
-```
-
-### Data file
+## Data file
 
 Communities are defined in [data/communities.yml](data/communities.yml):
 
@@ -46,9 +36,24 @@ Communities are defined in [data/communities.yml](data/communities.yml):
   site: https://helsinkijs.org # optional
 ```
 
-### CSS optimization
+The `add` command updates this file and adds a logo to the repo.
+
+## Development
+
+Install Jekyll dependencies in addition to the Node ones:
 
 ```bash
-npm run css
-npm run purgecss
+bundle install
+```
+
+Scrape event data:
+
+```bash
+npm run scrape
+```
+
+Start the Jekyll dev server:
+
+```bash
+npm start
 ```
