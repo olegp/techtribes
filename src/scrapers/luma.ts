@@ -13,6 +13,23 @@ export default async function scrape(events: string | URL | Request) {
     return { event: null };
   }
 
+  const rawName = $('meta[property="og:title"]').attr("content") || $("title").text().trim();
+  const name = rawName.replace(/\s*[·•]\s*Events?\s+Calendar\s*/i, "").trim();
+
+  const logoStyle = $('.logo-wrapper .logo a > div').attr("style");
+  let logo: string | undefined;
+
+  if (logoStyle) {
+    const match = logoStyle.match(/url\(([^)]+)\)/);
+    if (match) {
+      logo = match[1];
+    }
+  }
+
+  if (!logo) {
+    logo = $('meta[property="og:image"]').attr("content");
+  }
+
   const eventDates = nextData.props?.pageProps?.initialData?.data?.event_start_ats;
   if (!eventDates || !Array.isArray(eventDates) || eventDates.length === 0) {
     return { event: null };
@@ -39,7 +56,7 @@ export default async function scrape(events: string | URL | Request) {
     })
     .filter((event): event is NonNullable<typeof event> => event !== null);
 
-  if (allEvents.length === 0) return { event: null };
+  if (allEvents.length === 0) return { event: null, name, logo };
 
   allEvents.sort((a, b) => a.distance - b.distance);
   const latestEvent = allEvents[0]!;
@@ -49,5 +66,7 @@ export default async function scrape(events: string | URL | Request) {
       date: latestEvent.formattedDate,
       link: latestEvent.link,
     },
+    name,
+    logo,
   };
 }

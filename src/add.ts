@@ -1,4 +1,5 @@
-import scrape from "./scrapers/meetup.ts";
+import scrapeMeetup from "./scrapers/meetup.ts";
+import scrapeLuma from "./scrapers/luma.ts";
 import type { Community } from "./utils.ts";
 import {
   LOGOS_DIR,
@@ -13,26 +14,46 @@ async function main() {
   const tagsArg = process.argv[3];
 
   if (!url) {
-    console.error("Usage: npm run add <meetup-url> [tags]");
-    console.error('Example: npm run add https://meetup.com/example/ "Python,Data Science,AI"');
+    console.error("Usage: npm run add <url> [tags]");
+    console.error('Examples:');
+    console.error('  npm run add https://meetup.com/example/ "Python,Data Science,AI"');
+    console.error('  npm run add https://luma.com/example "Python,Data Science,AI"');
     process.exit(1);
   }
 
-  if (!url.includes("meetup.com")) {
-    console.error("Error: Only Meetup.com URLs are supported");
+  const isMeetup = url.includes("meetup.com");
+  const isLuma = url.includes("luma.com");
+
+  if (!isMeetup && !isLuma) {
+    console.error("Error: Only Meetup.com and Luma.com URLs are supported");
     process.exit(1);
   }
 
   console.log(`Scraping ${url}...`);
-  const data = await scrape(url);
 
-  if (!data.name) {
-    console.error("Error: Could not extract community name from URL");
+  let data: { name?: string; members?: number; logo?: string; event?: { date: string; link: string } | null };
+
+  if (isMeetup) {
+    data = await scrapeMeetup(url);
+  } else {
+    data = await scrapeLuma(url);
+  }
+
+  if (isLuma && !data.name) {
+    console.error("Error: Could not extract community name from Luma URL");
+    console.error("Please add the community manually to data/communities.yml");
+    process.exit(1);
+  }
+
+  if (isMeetup && !data.name) {
+    console.error("Error: Could not extract community name from Meetup URL");
     process.exit(1);
   }
 
   console.log(`Found: ${data.name}`);
-  console.log(`Members: ${data.members || "unknown"}`);
+  if (data.members) {
+    console.log(`Members: ${data.members}`);
+  }
 
   const communities = await loadCommunities();
 
