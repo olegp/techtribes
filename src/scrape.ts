@@ -44,10 +44,13 @@ async function scrape(community: {
         return;
       }
 
+      const isoDate = eventDate.toISOString().split("T")[0];
+
       events.push({
         ...community,
         members: scraped.members,
         date: scraped.event.date,
+        isoDate,
         event: scraped.event.link,
         eventLocation: scraped.event.location,
       });
