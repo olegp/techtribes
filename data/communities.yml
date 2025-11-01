@@ -68,6 +68,14 @@
     - DevOps
   events: https://www.meetup.com/finland-azure-user-group/
   logo: finland-azure-user-group.png
+- name: Finnish Game Industry QA Meetup
+  location: Helsinki, Finland
+  tags:
+    - QA
+    - Testing
+    - Game Industry
+  events: https://www.meetup.com/finnish-game-industry-qa-meetup-group/
+  logo: finnish-game-industry-qa-meetup.png
 - name: Finnish Testing Meetup Group
   location: Helsinki, Finland
   tags:
@@ -152,7 +160,8 @@
   location: Helsinki, Finland
   tags:
     - Java
-  events: https://gist.github.com/ctapobep/c60f8ff47022053647faf8fa6dbebdb9?permalink_comment_id=5768142#gistcomment-5768142
+  events: >-
+    https://gist.github.com/ctapobep/c60f8ff47022053647faf8fa6dbebdb9?permalink_comment_id=5768142#gistcomment-5768142
   url: >-
     https://gist.githubusercontent.com/ctapobep/c60f8ff47022053647faf8fa6dbebdb9/raw
   logo: helsinki-java-user-group.png
@@ -162,6 +171,20 @@
     - Java
   events: https://www.meetup.com/helsinki-java-user-group/
   logo: helsinki-java-user-group.png
+- name: Helsinki MLOps Community
+  location: Helsinki, Finland
+  tags:
+    - ML
+  events: https://luma.com/helsinki-mlops
+  logo: helsinki-mlops-community.png
+- name: Helsinki PostgreSQL Meetup
+  location: Helsinki, Finland
+  tags:
+    - Databases
+    - PostgreSQL
+    - SQL
+  events: https://www.meetup.com/helsinki-postgresql-meetup/
+  logo: helsinki-postgresql-meetup.png
 - name: Helsinki Product Owner
   location: Helsinki, Finland
   tags:
@@ -295,6 +318,12 @@
     - AI
   events: https://www.meetup.com/vibe-coding-finland/
   logo: vibecodingfinland.png
+- name: Wolt Tech Talks
+  location: Helsinki, Finland
+  tags:
+    - Software Development
+  events: https://www.meetup.com/wolttechtalks/
+  logo: wolt-tech-talks.png
 - name: Women4Cyber Finland
   location: Helsinki, Finland
   events: https://www.meetup.com/women4cyber-finland/
@@ -306,25 +335,3 @@
     - WordPress
   events: https://www.meetup.com/WPHelsinki/
   logo: wordpress-helsinki.png
-- name: Wolt Tech Talks
-  location: Helsinki, Finland
-  tags:
-    - Software Development
-  events: https://www.meetup.com/wolttechtalks/
-  logo: wolt-tech-talks.png
-- name: Helsinki PostgreSQL Meetup
-  location: Helsinki, Finland
-  tags:
-    - Databases
-    - PostgreSQL
-    - SQL
-  events: https://www.meetup.com/helsinki-postgresql-meetup/
-  logo: helsinki-postgresql-meetup.png
-- name: Finnish Game Industry QA Meetup
-  location: Helsinki, Finland
-  tags:
-    - QA
-    - Testing
-    - Game Industry
-  events: https://www.meetup.com/finnish-game-industry-qa-meetup-group/
-  logo: finnish-game-industry-qa-meetup.png
