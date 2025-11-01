@@ -131,6 +131,12 @@
   events: https://www.meetup.com/helsinki-data-analytics-science-meetup/
   site: https://dainstudios.com/dain_meetup/
   logo: helsinki-data-analytics-science-meetup.png
+- name: Helsinki dbt Meetup
+  location: Helsinki, Finland
+  tags:
+    - dbt
+  events: https://www.meetup.com/helsinki-dbt-meetup/
+  logo: helsinki-dbt-meetup.png
 - name: Helsinki Gophers
   location: Helsinki, Finland
   tags:
