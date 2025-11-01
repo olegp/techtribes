@@ -1,5 +1,6 @@
 import scrapeMeetup from "./scrapers/meetup.ts";
 import scrapeLuma from "./scrapers/luma.ts";
+import scrapeMeetabit from "./scrapers/meetabit.ts";
 import type { Community } from "./utils.ts";
 import {
   LOGOS_DIR,
@@ -18,14 +19,16 @@ async function main() {
     console.error('Examples:');
     console.error('  npm run add https://meetup.com/example/ "Python,Data Science,AI"');
     console.error('  npm run add https://luma.com/example "Python,Data Science,AI"');
+    console.error('  npm run add https://meetabit.com/example/ "Python,Data Science,AI"');
     process.exit(1);
   }
 
   const isMeetup = url.includes("meetup.com");
   const isLuma = url.includes("luma.com");
+  const isMeetabit = url.includes("meetabit.com");
 
-  if (!isMeetup && !isLuma) {
-    console.error("Error: Only Meetup.com and Luma.com URLs are supported");
+  if (!isMeetup && !isLuma && !isMeetabit) {
+    console.error("Error: Only Meetup.com, Luma.com and Meetabit.com URLs are supported");
     process.exit(1);
   }
 
@@ -35,12 +38,20 @@ async function main() {
 
   if (isMeetup) {
     data = await scrapeMeetup(url);
-  } else {
+  } else if (isLuma) {
     data = await scrapeLuma(url);
+  } else {
+    data = await scrapeMeetabit(url);
   }
 
   if (isLuma && !data.name) {
     console.error("Error: Could not extract community name from Luma URL");
+    console.error("Please add the community manually to data/communities.yml");
+    process.exit(1);
+  }
+
+  if (isMeetabit && !data.name) {
+    console.error("Error: Could not extract community name from Meetabit URL");
     console.error("Please add the community manually to data/communities.yml");
     process.exit(1);
   }
