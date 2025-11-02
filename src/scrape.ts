@@ -7,6 +7,7 @@ import scrapeLuma from "./scrapers/luma.ts";
 import { loadCommunities } from "./utils.ts";
 
 const events: any[] = [];
+const inactiveCommunities: string[] = [];
 
 function parseDate(dateString: string): Date {
   const [day, month, year] = dateString.split("/");
@@ -42,6 +43,7 @@ async function scrape(community: {
 
       if (!isActiveEvent(eventDate)) {
         console.warn(`Inactive: ${community.name} (${scraped.event.date})`);
+        inactiveCommunities.push(community.name);
         return;
       }
 
@@ -57,6 +59,7 @@ async function scrape(community: {
       });
     } else {
       console.warn(`Inactive: ${community.name} (no events found)`);
+      inactiveCommunities.push(community.name);
     }
   } catch (error) {
     console.warn(`Error scraping "${community.name}":`, error);
@@ -96,6 +99,6 @@ async function scrape(community: {
 
   await fs.writeFile(
     "site/_data/output.yml",
-    yaml.dump({ events: sortedEvents })
+    yaml.dump({ events: sortedEvents, inactive: inactiveCommunities })
   );
 })();
