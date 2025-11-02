@@ -16,10 +16,16 @@ async function main() {
 
   if (!url) {
     console.error("Usage: npm run add <url> [tags]");
-    console.error('Examples:');
-    console.error('  npm run add https://meetup.com/example/ "Python,Data Science,AI"');
-    console.error('  npm run add https://luma.com/example "Python,Data Science,AI"');
-    console.error('  npm run add https://meetabit.com/example/ "Python,Data Science,AI"');
+    console.error("Examples:");
+    console.error(
+      '  npm run add https://meetup.com/example/ "Python,Data Science,AI"'
+    );
+    console.error(
+      '  npm run add https://luma.com/example "Python,Data Science,AI"'
+    );
+    console.error(
+      '  npm run add https://meetabit.com/example/ "Python,Data Science,AI"'
+    );
     process.exit(1);
   }
 
@@ -28,13 +34,21 @@ async function main() {
   const isMeetabit = url.includes("meetabit.com");
 
   if (!isMeetup && !isLuma && !isMeetabit) {
-    console.error("Error: Only Meetup.com, Luma.com and Meetabit.com URLs are supported");
+    console.error(
+      "Error: Only Meetup.com, Luma.com and Meetabit.com URLs are supported"
+    );
     process.exit(1);
   }
 
   console.log(`Scraping ${url}...`);
 
-  let data: { name?: string; members?: number; logo?: string; event?: { date: string; link: string } | null };
+  let data: {
+    name?: string;
+    members?: number;
+    logo?: string;
+    location?: string;
+    event?: { date: string; link: string } | null;
+  };
 
   if (isMeetup) {
     data = await scrapeMeetup(url);
@@ -61,6 +75,11 @@ async function main() {
     process.exit(1);
   }
 
+  if (!data.name) {
+    console.error("Error: Could not extract community name");
+    process.exit(1);
+  }
+
   console.log(`Found: ${data.name}`);
   if (data.members) {
     console.log(`Members: ${data.members}`);
@@ -68,19 +87,24 @@ async function main() {
 
   const communities = await loadCommunities();
 
-  const exists = communities.find((c) => c.name === data.name || c.events === url);
+  const exists = communities.find(
+    (c) => c.name === data.name || c.events === url
+  );
   if (exists) {
     console.error(`Error: Community "${data.name}" already exists`);
     process.exit(1);
   }
 
   const tags = tagsArg
-    ? tagsArg.split(",").map((tag) => tag.trim()).filter(Boolean)
+    ? tagsArg
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter(Boolean)
     : [];
 
   const newCommunity: Community = {
     name: data.name,
-    location: "Helsinki, Finland",
+    location: data.location || "Helsinki, Finland",
     tags,
     events: url,
   };
