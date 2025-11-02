@@ -49,6 +49,7 @@ export default async function scrape(events: string | URL | Request) {
 
   const eventDates = nextData.props?.pageProps?.initialData?.data?.event_start_ats;
   const featuredItems = nextData.props?.pageProps?.initialData?.data?.featured_items;
+  const calendarApiId = nextData.props?.pageProps?.initialData?.data?.calendar?.api_id;
 
   if (!eventDates || !Array.isArray(eventDates) || eventDates.length === 0) {
     return { event: null, name, logo, location };
@@ -62,6 +63,28 @@ export default async function scrape(events: string | URL | Request) {
     for (const item of featuredItems) {
       if (item.event?.start_at && item.event?.url) {
         eventMap.set(item.event.start_at, `https://lu.ma/${item.event.url}`);
+      }
+    }
+  }
+
+  if (calendarApiId) {
+    for (const period of ['past', 'future']) {
+      try {
+        const response = await fetch(
+          `https://api2.luma.com/calendar/get-items?calendar_api_id=${calendarApiId}&pagination_limit=50&period=${period}`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data.entries && Array.isArray(data.entries)) {
+            for (const entry of data.entries) {
+              if (entry.event?.start_at && entry.event?.url) {
+                eventMap.set(entry.event.start_at, `https://lu.ma/${entry.event.url}`);
+              }
+            }
+          }
+        }
+      } catch {
+        // Ignore fetch errors
       }
     }
   }
