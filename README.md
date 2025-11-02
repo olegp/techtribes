@@ -37,7 +37,7 @@ Communities are defined in [data/communities.yml](data/communities.yml):
   url: https://example.com/events.json # optional, for custom JSON endpoints
 ```
 
-Required fields: `name`, `location`, `events`. The `add` command updates this file and adds a logo to the repo.
+The `add` command updates this file and adds a logo to the repo.
 
 ## Development
 
