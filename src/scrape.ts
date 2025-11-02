@@ -55,6 +55,8 @@ async function scrape(community: {
         event: scraped.event.link,
         eventLocation: scraped.event.location,
       });
+    } else {
+      console.warn(`Inactive: ${community.name} (no events found)`);
     }
   } catch (error) {
     console.warn(`Error scraping "${community.name}":`, error);

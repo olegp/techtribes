@@ -13,7 +13,8 @@
     "scrape": "node src/scrape.ts",
     "sort": "node src/sort.ts",
     "images": "node src/images.ts",
-    "add": "node src/add.ts"
+    "add": "node src/add.ts",
+    "prune": "npm run scrape && node src/prune.ts"
   },
   "author": "Oleg Podsechin",
   "license": "MIT",
