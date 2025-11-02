@@ -2,7 +2,7 @@
 
 ## Overview
 
-A site listing active tech community events in Finland. Events are updated automatically once a day. Supports [Meetabit](https://www.meetabit.com/), [Meetup.com](https://www.meetup.com/), [Luma](https://luma.com/) and a [custom JSON format](https://gist.github.com/olegp/f34469b65286c057964414c4aaf5bf47).
+A site listing active tech community events in Finland. Events are updated automatically once a day. Supports [Meetabit](https://www.meetabit.com/), [Meetup.com](https://www.meetup.com/), [Luma](https://luma.com/) and a [custom JSON format](https://gist.githubusercontent.com/olegp/f34469b65286c057964414c4aaf5bf47/raw).
 
 ## Add community
 
@@ -31,10 +31,11 @@ Communities are defined in [data/communities.yml](data/communities.yml):
   location: Helsinki, Finland
   tags:
     - JavaScript
+    - TypeScript
   events: https://www.meetabit.com/communities/helsinkijs
-  logo: helsinkijs.png # optional
+  logo: helsinkijs.png # optional, can start with http(s)
   site: https://helsinkijs.org # optional
-  url: https://example.com/events.json # optional, for custom JSON endpoints
+  url: https://gist.githubusercontent.com/olegp/f34469b65286c057964414c4aaf5bf47/raw # alternative to events
 ```
 
 The `add` command updates this file and adds a logo to the repo.
