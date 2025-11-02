@@ -15,24 +15,17 @@ const months: Record<string, string> = {
   dec: "12",
 };
 
-function parseDate(
-  dayNumber: string,
-  monthName: string,
-  isFutureEvent: boolean
-) {
+function parseDate(dayNumber: string, monthName: string, year: string) {
   const month = months[monthName.toLowerCase().trim()];
   const day = dayNumber.padStart(2, "0");
-  const currentYear = new Date().getFullYear();
-
-  const eventDate = new Date(currentYear, parseInt(month) - 1, parseInt(day));
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0);
-
-  let year = currentYear;
-  if (isFutureEvent && eventDate < currentDate) year++;
-  else if (!isFutureEvent && eventDate > currentDate) year--;
-
   return `${day}/${month}/${year}`;
+}
+
+async function fetchEventYear(eventUrl: string): Promise<string> {
+  const $ = cheerio.load(await (await fetch(eventUrl)).text());
+  const monthNameText = $(".month-name").first().text().trim();
+  const yearMatch = monthNameText.match(/,\s*(\d{4})/);
+  return yearMatch ? yearMatch[1] : new Date().getFullYear().toString();
 }
 
 export default async function scrape(events: string | URL | Request) {
@@ -50,22 +43,26 @@ export default async function scrape(events: string | URL | Request) {
   let event: { date: string; link: string } | undefined;
 
   if (futureEvent.length) {
+    const link = "https://www.meetabit.com" + futureEvent.find("a").attr("href");
+    const year = await fetchEventYear(link);
     event = {
       date: parseDate(
         futureEvent.find(".day-number").text(),
         futureEvent.find(".month-name").text(),
-        true
+        year
       ),
-      link: "https://www.meetabit.com" + futureEvent.find("a").attr("href"),
+      link,
     };
   } else if (pastEvent.length) {
+    const link = "https://www.meetabit.com" + pastEvent.find("a").attr("href");
+    const year = await fetchEventYear(link);
     event = {
       date: parseDate(
         pastEvent.find(".day-number").text(),
         pastEvent.find(".month-name").text(),
-        false
+        year
       ),
-      link: "https://www.meetabit.com" + pastEvent.find("a").attr("href"),
+      link,
     };
   }
 
