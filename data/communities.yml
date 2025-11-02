@@ -211,11 +211,6 @@
   events: https://www.meetup.com/rubybrigade/
   site: https://rubybrigade.fi/
   logo: helsinki-ruby-brigade.png
-- name: Helsinki Security Meetup
-  location: Helsinki, Finland
-  tags:
-    - Security
-  events: https://www.meetup.com/helsinki-security-meetup/
 - name: Helsinki Snowflake User Group | Meetup
   location: Helsinki, Finland
   tags:
@@ -245,12 +240,6 @@
   tags: []
   events: https://luma.com/hivehelsinki
   logo: hive-helsinki.png
-- name: IGDA Finland
-  location: Helsinki, Finland
-  tags:
-    - Game Development
-  events: https://luma.com/calendar/cal-43KtcM8sGYhTKGf
-  logo: igda-finland.png
 - name: Microsoft Security User Group Finland
   location: Helsinki, Finland
   tags:
@@ -278,12 +267,6 @@
     - React
   events: https://www.meetabit.com/communities/react-helsinki
   logo: react-helsinki.png
-- name: SRE Finland
-  location: Helsinki, Finland
-  tags:
-    - SRE
-  events: https://www.meetup.com/SRE-Finland/
-  logo: sre-finland.png
 - name: Symposium AI
   location: Helsinki, Finland
   tags:
@@ -298,12 +281,6 @@
   events: https://www.meetabit.com/communities/tamperejs
   site: https://tamperejs.github.io/
   logo: tamperejs.png
-- name: Tech Excellent Finland
-  location: Helsinki, Finland
-  tags:
-    - Agile
-  events: https://www.meetup.com/tech-excellence-finland/
-  logo: tech-excellent-finland.png
 - name: Turku <3 Frontend
   location: Turku, Finland
   tags:
