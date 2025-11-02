@@ -30,9 +30,26 @@ export default async function scrape(events: string | URL | Request) {
     logo = $('meta[property="og:image"]').attr("content");
   }
 
+  let location: string | undefined;
+  const ldJsonScript = $('script[type="application/ld+json"]').html();
+  if (ldJsonScript) {
+    try {
+      const ldData = JSON.parse(ldJsonScript);
+      const city = ldData.location?.address?.addressLocality;
+      const country = ldData.location?.address?.addressCountry;
+      if (city && country) {
+        location = `${city}, ${country}`;
+      } else if (city) {
+        location = city;
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }
+
   const eventDates = nextData.props?.pageProps?.initialData?.data?.event_start_ats;
   if (!eventDates || !Array.isArray(eventDates) || eventDates.length === 0) {
-    return { event: null };
+    return { event: null, name, logo, location };
   }
 
   const now = new Date();
@@ -56,7 +73,7 @@ export default async function scrape(events: string | URL | Request) {
     })
     .filter((event): event is NonNullable<typeof event> => event !== null);
 
-  if (allEvents.length === 0) return { event: null, name, logo };
+  if (allEvents.length === 0) return { event: null, name, logo, location };
 
   allEvents.sort((a, b) => a.distance - b.distance);
   const latestEvent = allEvents[0]!;
@@ -68,5 +85,6 @@ export default async function scrape(events: string | URL | Request) {
     },
     name,
     logo,
+    location,
   };
 }
