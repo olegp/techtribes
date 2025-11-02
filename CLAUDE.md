@@ -33,18 +33,20 @@ npm start               # Start Jekyll dev server with live reload
 npm run build           # Build static site for production
 ```
 
+### Data Management
+
+```bash
+npm run add <url> [tags] # Add a community by URL with optional tags
+npm run sort            # Sort communities.yml alphabetically by name
+npm run images          # Process community logos
+npm run prune           # Remove inactive communities (no events in past year)
+```
+
 ### CSS Development
 
 ```bash
 npm run css             # Process CSS
 npm run purgecss        # Optimize CSS by removing unused styles
-```
-
-### Data Management
-
-```bash
-npm run sort            # Sort communities.yml alphabetically by name
-npm run images          # Process community logos
 ```
 
 ## Scraper Architecture
