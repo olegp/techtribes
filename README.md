@@ -32,11 +32,12 @@ Communities are defined in [data/communities.yml](data/communities.yml):
   tags:
     - JavaScript
   events: https://www.meetabit.com/communities/helsinkijs
-  logo: helsinkijs.png
+  logo: helsinkijs.png # optional
   site: https://helsinkijs.org # optional
+  url: https://example.com/events.json # optional, for custom JSON endpoints
 ```
 
-The `add` command updates this file and adds a logo to the repo.
+Required fields: `name`, `location`, `events`. The `add` command updates this file and adds a logo to the repo.
 
 ## Development
 
