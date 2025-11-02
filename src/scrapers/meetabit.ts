@@ -71,11 +71,13 @@ export default async function scrape(events: string | URL | Request) {
 
   const name = $(".col-sm-7 h1").first().text().trim();
   const logo = $(".col-sm-5 .img-thumbnail img").attr("src");
+  const location = $(".col-sm-7 h1").next("p").text().trim();
 
   return {
     name,
     logo,
     event,
     members: $("h1~ p+ p").text().match(/\d+/g)?.map(Number).pop(),
+    location,
   };
 }
