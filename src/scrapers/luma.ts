@@ -48,12 +48,23 @@ export default async function scrape(events: string | URL | Request) {
   }
 
   const eventDates = nextData.props?.pageProps?.initialData?.data?.event_start_ats;
+  const featuredItems = nextData.props?.pageProps?.initialData?.data?.featured_items;
+
   if (!eventDates || !Array.isArray(eventDates) || eventDates.length === 0) {
     return { event: null, name, logo, location };
   }
 
   const now = new Date();
   now.setHours(0, 0, 0, 0);
+
+  const eventMap = new Map();
+  if (featuredItems && Array.isArray(featuredItems)) {
+    for (const item of featuredItems) {
+      if (item.event?.start_at && item.event?.url) {
+        eventMap.set(item.event.start_at, `https://lu.ma/${item.event.url}`);
+      }
+    }
+  }
 
   const allEvents = eventDates
     .map((dateString) => {
@@ -64,10 +75,12 @@ export default async function scrape(events: string | URL | Request) {
 
       const normalizedDate = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
 
+      const eventLink = eventMap.get(dateString) || events.toString();
+
       return {
         formattedDate,
         eventDate: normalizedDate,
-        link: events.toString(),
+        link: eventLink,
         distance: Math.abs(normalizedDate.getTime() - now.getTime()),
       };
     })
@@ -76,7 +89,7 @@ export default async function scrape(events: string | URL | Request) {
   if (allEvents.length === 0) return { event: null, name, logo, location };
 
   allEvents.sort((a, b) => a.distance - b.distance);
-  const latestEvent = allEvents[0]!;
+  const latestEvent = allEvents[0]!
 
   return {
     event: {
