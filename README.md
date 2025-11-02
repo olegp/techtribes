@@ -58,3 +58,9 @@ Start the Jekyll dev server:
 ```bash
 npm start
 ```
+
+Remove inactive communities:
+
+```bash
+npm run prune
+```
