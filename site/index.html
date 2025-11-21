@@ -4,21 +4,21 @@ title: Techtribes
 description: Discover active tech communities and meetups in Finland. Find upcoming events, past meetups, and connect with tech enthusiasts in your area.
 ---
 
-<div class="page-header d-print-none mt-1 mb-3">
-  <div class="row g-2 align-items-center">
-    <div class="col">
-      <h2 class="page-title">Upcoming events</h2>
+<div class="border-b print:hidden mt-1 mb-3 pb-4">
+  <div class="flex gap-2 items-center">
+    <div class="flex-1">
+      <h2 class="text-2xl font-bold">Upcoming events</h2>
     </div>
-    <div class="col-auto ms-auto d-print-none">
+    <div class="ml-auto print:hidden">
       <a
         href="https://github.com/olegp/techtribes?tab=readme-ov-file#add-community"
-        class="btn btn-primary"
+        class="btn-outline"
       >
         <img
           src="{{ site.url }}/assets/icons/plus.svg"
           width="20"
           height="20"
-          class="icon"
+          class="w-5 h-5"
           alt="Plus sign"
         />
         Add a community
@@ -26,8 +26,8 @@ description: Discover active tech communities and meetups in Finland. Find upcom
     </div>
   </div>
 </div>
-<div class="row row-cards">
-  <div class="space-y">
+<div class="grid gap-4">
+  <div class="space-y-4">
     {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community
     in site.data.output.events %} {% assign event_date = community.date | split:
     '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:
@@ -35,15 +35,15 @@ description: Discover active tech communities and meetups in Finland. Find upcom
     event_timestamp >= today %} {% include card.html %} {% endif %} {% endfor %}
   </div>
 </div>
-<div class="page-header d-print-none mt-1 mb-3">
-  <div class="row g-2 align-items-center">
-    <div class="col">
-      <h2 class="page-title">Past events</h2>
+<div class="border-b print:hidden mt-1 mb-3 pb-4">
+  <div class="flex gap-2 items-center">
+    <div class="flex-1">
+      <h2 class="text-2xl font-bold">Past events</h2>
     </div>
   </div>
 </div>
-<div class="row row-cards">
-  <div class="space-y">
+<div class="grid gap-4">
+  <div class="space-y-4">
     {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community
     in site.data.output.events %} {% assign event_date = community.date | split:
     '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:

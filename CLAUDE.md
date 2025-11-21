@@ -14,7 +14,7 @@ Techtribes is a Jekyll-based static site that lists active tech communities and 
   - Communities defined in `data/communities.yml`
   - Scrapers fetch event data and output to `site/_data/output.yml`
   - Jekyll builds the static site using this data
-- **CSS Processing**: Uses Tabler CSS framework with PurgeCSS optimization
+- **CSS Processing**: Uses Basecoat and Tailwind CSS with built-in tree-shaking optimization
 
 ## Development Commands
 
@@ -45,9 +45,15 @@ npm run prune           # Remove inactive communities (no events in past year)
 ### CSS Development
 
 ```bash
-npm run css             # Process CSS
-npm run purgecss        # Optimize CSS by removing unused styles
+npm run css             # Build Tailwind CSS and copy Basecoat CSS
+npm run purgecss        # Legacy command (retained for compatibility, not needed with Tailwind)
 ```
+
+The CSS build process:
+- Builds Tailwind CSS from `src/input.css` using PostCSS
+- Copies Basecoat CSS from node_modules
+- Tailwind automatically purges unused styles based on `tailwind.config.js`
+- Both CSS files are output to `site/assets/css/`
 
 ## Scraper Architecture
 

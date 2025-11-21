@@ -64,65 +64,18 @@
       }
     </script>
 
-    {% assign file = site.static_files | where: "path", "/assets/css/tabler.css"
+    {% assign basecoat_file = site.static_files | where: "path", "/assets/css/basecoat.css"
     | first %}
     <link
       rel="stylesheet"
-      href="{{ site.url }}/assets/css/tabler.css{{ file.modified_time | date:'?v=%s' }}"
+      href="{{ site.url }}/assets/css/basecoat.css{{ basecoat_file.modified_time | date:'?v=%s' }}"
     />
-    <style>
-      .icon-tabler {
-        width: 32px;
-        height: 32px;
-        margin-right: 16px;
-      }
-      .logo {
-        --tblr-avatar-size: 4rem;
-        object-fit: cover;
-        object-position: center;
-      }
-      [data-tooltip] {
-        position: relative;
-      }
-      [data-tooltip]::before {
-        content: attr(data-tooltip);
-        position: absolute;
-        top: 50%;
-        right: 100%;
-        transform: translateY(-50%) translateX(-20px);
-        padding: 8px 12px;
-        background-color: #1e293b;
-        color: #fff;
-        font-size: 14px;
-        border-radius: 6px;
-        white-space: nowrap;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-        z-index: 1000;
-      }
-      [data-tooltip]::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 100%;
-        transform: translateY(-50%) translateX(-8px);
-        border: 8px solid transparent;
-        border-left-color: #1e293b;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
-        z-index: 1001;
-      }
-      [data-tooltip]:hover::before {
-        opacity: 1;
-        transform: translateY(-50%) translateX(-12px);
-      }
-      [data-tooltip]:hover::after {
-        opacity: 1;
-        transform: translateY(-50%) translateX(0);
-      }
-    </style>
+    {% assign tailwind_file = site.static_files | where: "path", "/assets/css/tailwind.css"
+    | first %}
+    <link
+      rel="stylesheet"
+      href="{{ site.url }}/assets/css/tailwind.css{{ tailwind_file.modified_time | date:'?v=%s' }}"
+    />
     <link rel="icon" href="{{ site.url }}/favicon.ico" type="image/x-icon" />
     <link
       rel="icon"
@@ -142,15 +95,13 @@
       href="{{ site.url }}/assets/favicons/apple-touch-icon.png"
     />
   </head>
-  <body class="theme-dark-auto">
-    <div class="page">
-      <div class="page-wrapper">
-        {% include header.html %}
-        <div class="page-body">
-          <div class="container">{{ content }}</div>
-        </div>
-        {% include footer.html %}
-      </div>
+  <body class="theme-default">
+    <div class="min-h-screen flex flex-col">
+      {% include header.html %}
+      <main class="flex-1">
+        <div class="container mx-auto px-4">{{ content }}</div>
+      </main>
+      {% include footer.html %}
     </div>
     {% include analytics.html %}
   </body>

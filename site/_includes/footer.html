@@ -1,30 +1,33 @@
-<footer class="footer footer-transparent d-print-none">
-  <div class="container">
-    <div class="row text-center align-items-center flex-row-reverse text-dark">
-      <div class="col-lg-auto ms-lg-auto">
-        <ul class="list-inline list-inline-dots mb-0">
-          <li class="list-inline-item">
+<footer class="bg-transparent print:hidden border-t">
+  <div class="container mx-auto px-4 py-6">
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-0 text-center">
+      <div class="w-full lg:w-auto">
+        <ul class="flex flex-wrap gap-x-4 mb-0">
+          <li>
             Host a community on
             <a href="https://www.meetabit.com/communities/new">Meetabit</a>
           </li>
-          <li class="list-inline-item">
-            Sponsored by
+          <li>
+            · Sponsored by
             <a href="https://www.toughbyte.com/about">Toughbyte</a>
           </li>
         </ul>
       </div>
-      <div class="col-12 col-lg-auto mt-3 mt-lg-0">
-        <ul class="list-inline list-inline-dots mb-0">
-          <li class="list-inline-item">
+      <div class="w-full lg:w-auto lg:ml-auto">
+        <ul class="flex flex-wrap gap-x-4 mb-0">
+          <li>
             Last updated on {{ site.time | date: '%d/%m/%Y' }}
           </li>
-          <li class="list-inline-item">
+          <li>
+            ·
             <a href="https://github.com/olegp/techtribes">Code</a>
           </li>
-          <li class="list-inline-item">
+          <li>
+            ·
             <a href="/feed.xml">Feed</a>
           </li>
-          <li class="list-inline-item">
+          <li>
+            ·
             <a href="/guide">Organizer guide</a>
           </li>
         </ul>
