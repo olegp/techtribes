@@ -46,27 +46,27 @@
 
   .tooltip {
     position: absolute;
+    top: 0;
+    left: 0;
     z-index: 50;
-    overflow: hidden;
+    width: max-content;
+    max-width: 20rem;
     border-radius: 0.375rem;
     background-color: var(--color-foreground);
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    padding-top: 0.375rem;
-    padding-bottom: 0.375rem;
+    padding: 0.375rem 0.75rem;
     color: var(--color-background);
     font-size: 0.875rem;
     line-height: 1.25rem;
-    opacity: 0;
-    pointer-events: none;
-    transition-property: opacity;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 200ms;
     white-space: nowrap;
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 200ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .tooltip.show {
+    visibility: visible;
     opacity: 1;
   }
 

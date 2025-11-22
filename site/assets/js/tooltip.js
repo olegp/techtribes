@@ -41,9 +41,15 @@ class Tooltip {
 
       this.currentTrigger = trigger;
       this.tooltipElement.textContent = text;
-      this.tooltipElement.classList.add('show');
+
+      this.tooltipElement.style.visibility = 'visible';
+      this.tooltipElement.style.opacity = '0';
 
       this.position(trigger, side);
+
+      requestAnimationFrame(() => {
+        this.tooltipElement.classList.add('show');
+      });
     }, 200);
   }
 
@@ -52,6 +58,10 @@ class Tooltip {
 
     this.hideTimeout = setTimeout(() => {
       this.tooltipElement.classList.remove('show');
+      setTimeout(() => {
+        this.tooltipElement.style.visibility = '';
+        this.tooltipElement.style.opacity = '';
+      }, 200);
       this.currentTrigger = null;
     }, 100);
   }
@@ -60,34 +70,39 @@ class Tooltip {
     const triggerRect = trigger.getBoundingClientRect();
     const tooltipRect = this.tooltipElement.getBoundingClientRect();
     const gap = 8;
+    const scrollX = window.pageXOffset || document.documentElement.scrollLeft;
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
     let top, left;
 
     switch (side) {
       case 'left':
-        top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2);
-        left = triggerRect.left - tooltipRect.width - gap;
+        top = triggerRect.top + scrollY + (triggerRect.height / 2) - (tooltipRect.height / 2);
+        left = triggerRect.left + scrollX - tooltipRect.width - gap;
         break;
       case 'right':
-        top = triggerRect.top + (triggerRect.height / 2) - (tooltipRect.height / 2);
-        left = triggerRect.right + gap;
+        top = triggerRect.top + scrollY + (triggerRect.height / 2) - (tooltipRect.height / 2);
+        left = triggerRect.right + scrollX + gap;
         break;
       case 'bottom':
-        top = triggerRect.bottom + gap;
-        left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2);
+        top = triggerRect.bottom + scrollY + gap;
+        left = triggerRect.left + scrollX + (triggerRect.width / 2) - (tooltipRect.width / 2);
         break;
       case 'top':
       default:
-        top = triggerRect.top - tooltipRect.height - gap;
-        left = triggerRect.left + (triggerRect.width / 2) - (tooltipRect.width / 2);
+        top = triggerRect.top + scrollY - tooltipRect.height - gap;
+        left = triggerRect.left + scrollX + (triggerRect.width / 2) - (tooltipRect.width / 2);
         break;
     }
 
-    top = Math.max(gap, Math.min(top, window.innerHeight - tooltipRect.height - gap));
-    left = Math.max(gap, Math.min(left, window.innerWidth - tooltipRect.width - gap));
+    const maxTop = scrollY + window.innerHeight - tooltipRect.height - gap;
+    const maxLeft = scrollX + window.innerWidth - tooltipRect.width - gap;
 
-    this.tooltipElement.style.top = `${top + window.scrollY}px`;
-    this.tooltipElement.style.left = `${left + window.scrollX}px`;
+    top = Math.max(scrollY + gap, Math.min(top, maxTop));
+    left = Math.max(scrollX + gap, Math.min(left, maxLeft));
+
+    this.tooltipElement.style.top = `${top}px`;
+    this.tooltipElement.style.left = `${left}px`;
   }
 }
 

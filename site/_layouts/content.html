@@ -1,0 +1,84 @@
+---
+layout: default
+---
+
+<article class="max-w-4xl mx-auto py-12">
+  <header class="mb-12 pb-8 border-b-2 border-gray-100">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight text-gray-900">{{ page.title }}</h1>
+    {% if page.description %}
+    <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl">{{ page.description }}</p>
+    {% endif %}
+  </header>
+
+  <div class="content-wrapper">
+    {{ content }}
+  </div>
+</article>
+
+<style>
+.content-wrapper h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid #e5e7eb;
+  color: #111827;
+}
+
+.content-wrapper h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+.content-wrapper p {
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  color: #374151;
+}
+
+.content-wrapper ul {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.content-wrapper li {
+  font-size: 1rem;
+  line-height: 1.75;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  display: list-item;
+}
+
+.content-wrapper a {
+  color: #5b6cf6;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.content-wrapper a:hover {
+  text-decoration: underline;
+}
+
+.content-wrapper code {
+  background-color: #f3f4f6;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.content-wrapper strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+.content-wrapper > *:first-child {
+  margin-top: 0;
+}
+</style>

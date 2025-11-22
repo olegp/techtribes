@@ -4,8 +4,10 @@ export default {
     './site/**/*.md',
     './site/**/*.liquid',
     './site/_includes/**/*',
-    './site/_layouts/**/*'
+    './site/_layouts/**/*',
+    './site/assets/js/**/*.js'
   ],
+  safelist: ['tooltip', 'show'],
   theme: {
     extend: {
       colors: {

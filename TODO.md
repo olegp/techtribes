@@ -1,4 +1,3 @@
 # TODO
 
-- fix feed tooltip
-- improve guide design
+- fox feed tooltip
