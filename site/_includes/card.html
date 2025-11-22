@@ -1,7 +1,7 @@
-<div class="card mb-1">
+<div class="card card-enhanced mb-1">
   <div class="flex gap-0">
     <div class="shrink-0 p-4">
-      <a href="{{ community.site | default: community.events }}">
+      <a href="{{ community.site | default: community.events }}" class="transition-opacity duration-200 hover:opacity-80">
         <img
           src="{% assign protocol = community.logo | slice: 0, 4 %}{% if protocol == 'http' %}{{ community.logo }}{% else %}{{ site.url }}/assets/logos/{{ community.logo }}{% endif %}"
           width="64"
@@ -15,8 +15,8 @@
     <div class="flex-1 p-4 pl-0">
       <div class="flex items-start justify-between">
         <div class="flex-1">
-          <h3 class="mb-0 text-lg font-semibold">
-            <a href="{{ community.site | default: community.events }}"
+          <h3 class="mb-0 text-xl font-semibold leading-relaxed">
+            <a href="{{ community.site | default: community.events }}" class="transition-colors duration-200 hover:text-primary"
               >{{ community.name | escape }}</a
             >
           </h3>
@@ -29,7 +29,7 @@
             class="w-5 h-5 inline-block"
             alt="Calendar event"
           />
-          <a href="{{ community.event }}" class="text-primary hover:underline">{{ community.date }}</a>
+          <a href="{{ community.event }}" class="text-primary transition-colors duration-200 hover:underline hover:text-primary-hover">{{ community.date }}</a>
         </div>
       </div>
       <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
@@ -61,9 +61,9 @@
           </div>
         </div>
         <div class="w-full md:w-auto">
-          <div class="mt-3 flex flex-wrap gap-1">
+          <div class="mt-3 flex flex-wrap gap-1.5">
             {% for tag in community.tags %}
-            <span class="badge mb-1">
+            <span class="badge badge-default rounded-full px-3 py-1.5 mb-1 text-sm font-medium">
               {{ tag }}
             </span>
             {% endfor %}

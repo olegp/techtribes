@@ -3,32 +3,33 @@
     <div class="flex flex-col lg:flex-row items-center justify-between gap-3 lg:gap-0 text-center">
       <div class="w-full lg:w-auto">
         <ul class="flex flex-wrap items-center gap-x-4 mb-0">
-          <li>
+          <li class="flex items-center">
             Last updated on {{ site.time | date: '%d/%m/%Y' }}
           </li>
-          <li>
-            ·
-            <a href="https://github.com/olegp/techtribes">Code</a>
+          <li class="flex items-center gap-2">
+            <span class="text-muted-foreground">·</span>
+            <a href="https://github.com/olegp/techtribes" class="transition-colors duration-200 hover:text-primary">Code</a>
           </li>
-          <li>
-            ·
-            <a href="/feed.xml">Feed</a>
+          <li class="flex items-center gap-2">
+            <span class="text-muted-foreground">·</span>
+            <a href="/feed.xml" class="transition-colors duration-200 hover:text-primary">Feed</a>
           </li>
-          <li>
-            ·
-            <a href="/guide">Organizer guide</a>
+          <li class="flex items-center gap-2">
+            <span class="text-muted-foreground">·</span>
+            <a href="/guide" class="transition-colors duration-200 hover:text-primary">Organizer guide</a>
           </li>
         </ul>
       </div>
       <div class="w-full lg:w-auto lg:ml-auto">
         <ul class="flex flex-wrap items-center gap-x-4 mb-0">
-          <li>
+          <li class="flex items-center">
             Host a community on
-            <a href="https://www.meetabit.com/communities/new">Meetabit</a>
+            <a href="https://www.meetabit.com/communities/new" class="ml-1 transition-colors duration-200 hover:text-primary">Meetabit</a>
           </li>
-          <li>
-            · Sponsored by
-            <a href="https://www.toughbyte.com/about">Toughbyte</a>
+          <li class="flex items-center gap-2">
+            <span class="text-muted-foreground">·</span>
+            <span>Sponsored by</span>
+            <a href="https://www.toughbyte.com/about" class="transition-colors duration-200 hover:text-primary">Toughbyte</a>
           </li>
         </ul>
       </div>
