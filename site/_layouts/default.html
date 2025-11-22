@@ -96,13 +96,14 @@
     />
   </head>
   <body class="theme-default">
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col pt-20">
       {% include header.html %}
       <main class="flex-1">
         <div class="container mx-auto px-4">{{ content }}</div>
       </main>
       {% include footer.html %}
     </div>
+    <script src="{{ site.url }}/assets/js/navbar.js"></script>
     <script src="{{ site.url }}/assets/js/tooltip.js"></script>
     {% include analytics.html %}
   </body>

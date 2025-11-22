@@ -1,46 +1,22 @@
-<header class="border-b bg-muted print:hidden">
-  <div class="container mx-auto px-4">
-    <div class="flex items-center justify-between py-4">
-      <a
-        class="flex items-center gap-2 pr-0 md:pr-3 transition-opacity duration-200 hover:opacity-80"
-        href="{{ site.url }}/"
-      >
-        <img
-          src="{{ site.url }}/assets/icons/tent.svg"
-          width="24"
-          height="24"
-          alt="Techtribes logo"
-        />
-        <h1 class="mb-0 text-2xl font-bold leading-tight">Techtribes</h1>
-      </a>
-      <div class="flex items-center gap-3">
-        <a href="https://github.com/olegp/techtribes" class="btn-outline">
-          <img
-            src="{{ site.url }}/assets/icons/code.svg"
-            width="20"
-            height="20"
-            class="w-5 h-5"
-            alt="Code icon"
-          />
-          <span class="hidden md:inline">Code</span>
+<header>
+  <nav data-state="false" class="fixed top-0 left-0 right-0 z-20 w-full bg-white border-b transition-all duration-300">
+    <div class="container mx-auto px-4">
+      <div class="relative flex items-center justify-between py-4">
+        <a aria-label="home" class="flex items-center gap-2" href="{{ site.url }}/">
+          <img src="{{ site.url }}/assets/icons/tent.svg" width="24" height="24" alt="Techtribes logo" class="size-6" />
+          <span class="text-xl font-bold">Techtribes</span>
         </a>
-        <a
-          href="{{ site.url }}/feed.xml"
-          class="btn-outline"
-          data-tooltip="Use feedrabbit.com for email alerts"
-          data-side="left"
-        >
-          <span class="hidden md:hidden">Use feedrabbit.com for email alerts</span>
-          <img
-            src="{{ site.url }}/assets/icons/rss.svg"
-            width="20"
-            height="20"
-            class="w-5 h-5"
-            alt="RSS icon"
-          />
-          <span class="hidden md:inline">Feed</span>
-        </a>
+        <div class="flex items-center gap-3">
+          <a href="https://github.com/olegp/techtribes" class="btn-outline">
+            <img src="{{ site.url }}/assets/icons/code.svg" width="20" height="20" class="w-5 h-5" alt="Code icon" />
+            <span>Code</span>
+          </a>
+          <a href="{{ site.url }}/feed.xml" class="btn-outline" data-tooltip="Use feedrabbit.com for email alerts" data-side="left">
+            <img src="{{ site.url }}/assets/icons/rss.svg" width="20" height="20" class="w-5 h-5" alt="RSS icon" />
+            <span>Feed</span>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </nav>
 </header>

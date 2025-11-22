@@ -25,9 +25,25 @@
     --color-ring: #7c3aed;
     --color-destructive: #ef4444;
   }
+
+  body {
+    margin: 0;
+  }
 }
 
 @layer components {
+  nav[data-state="true"] .lucide-menu {
+    @apply rotate-180 scale-0 opacity-0;
+  }
+
+  nav[data-state="true"] .lucide-x {
+    @apply rotate-0 scale-100 opacity-100 relative;
+  }
+
+  nav[data-state="true"] .mobile-menu {
+    @apply block;
+  }
+
   .tooltip {
     position: absolute;
     z-index: 50;
