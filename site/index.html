@@ -4,8 +4,8 @@ title: Techtribes
 description: Discover active tech communities and meetups in Finland. Find upcoming events, past meetups, and connect with tech enthusiasts in your area.
 ---
 
-<div class="border-b print:hidden mt-1 mb-3 pb-4">
-  <div class="flex gap-2 items-center">
+<div class="border-b print:hidden mb-8 pb-6">
+  <div class="flex gap-3 items-center">
     <div class="flex-1">
       <h2 class="text-3xl font-bold leading-tight">Upcoming events</h2>
     </div>
@@ -26,28 +26,34 @@ description: Discover active tech communities and meetups in Finland. Find upcom
     </div>
   </div>
 </div>
-<div class="grid gap-4">
+<div class="mb-12">
   <div class="space-y-4">
-    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community
-    in site.data.output.events %} {% assign event_date = community.date | split:
-    '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:
-    event_date[1] | append: '-' | append: event_date[0] | date: '%s' %} {% if
-    event_timestamp >= today %} {% include card.html %} {% endif %} {% endfor %}
+    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %}
+    {% for community in site.data.output.events %}
+    {% assign event_date = community.date | split: '/' %}
+    {% assign event_timestamp = event_date[2] | append: '-' | append: event_date[1] | append: '-' | append: event_date[0] | date: '%s' %}
+    {% if event_timestamp >= today %}
+    {% include card.html %}
+    {% endif %}
+    {% endfor %}
   </div>
 </div>
-<div class="border-b print:hidden mt-1 mb-3 pb-4">
-  <div class="flex gap-2 items-center">
+<div class="border-b print:hidden mb-8 pb-6">
+  <div class="flex gap-3 items-center">
     <div class="flex-1">
       <h2 class="text-3xl font-bold leading-tight">Past events</h2>
     </div>
   </div>
 </div>
-<div class="grid gap-4">
+<div class="mb-12">
   <div class="space-y-4">
-    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %} {% for community
-    in site.data.output.events %} {% assign event_date = community.date | split:
-    '/' %} {% assign event_timestamp = event_date[2] | append: '-' | append:
-    event_date[1] | append: '-' | append: event_date[0] | date: '%s' %} {% if
-    event_timestamp < today %} {% include card.html %} {% endif %} {% endfor %}
+    {% assign today = 'now' | date: '%Y-%m-%d' | date: '%s' %}
+    {% for community in site.data.output.events %}
+    {% assign event_date = community.date | split: '/' %}
+    {% assign event_timestamp = event_date[2] | append: '-' | append: event_date[1] | append: '-' | append: event_date[0] | date: '%s' %}
+    {% if event_timestamp < today %}
+    {% include card.html %}
+    {% endif %}
+    {% endfor %}
   </div>
 </div>
