@@ -97,8 +97,22 @@ async function scrape(community: {
   const sortedPast = past.sort((a, b) => sortByDate(b, a));
   const sortedEvents = [...sortedUpcoming, ...sortedPast];
 
+  const output = {
+    updated: new Date().toISOString(),
+    events: sortedEvents,
+    inactive: inactiveCommunities
+  };
+
   await fs.writeFile(
     "site/_data/output.yml",
-    yaml.dump({ events: sortedEvents, inactive: inactiveCommunities })
+    yaml.dump(output)
   );
+
+  await fs.writeFile(
+    "data/output.json",
+    JSON.stringify(output, null, 2)
+  );
+
+  console.log(`Scraped ${sortedEvents.length} events (${sortedUpcoming.length} upcoming, ${sortedPast.length} past)`);
+  console.log(`Inactive communities: ${inactiveCommunities.length}`);
 })();

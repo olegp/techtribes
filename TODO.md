@@ -1,4 +1,5 @@
 # TODO
 
+- finish React Router/Remix rewrite
+
 - fix feed tooltip
-- rewrite using React Router/Remix and static output

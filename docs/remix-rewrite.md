@@ -34,8 +34,8 @@ This document outlines the migration plan from Jekyll static site generator to R
 
 #### 1.1 Initialize Remix Project
 ```bash
-npx create-remix@latest techtribes-remix --template remix-run/remix/templates/vite
-cd techtribes-remix
+npx create-remix@latest remix --template remix-run/remix/templates/vite
+cd remix
 npm install
 ```
 
@@ -78,7 +78,7 @@ npm install tailark
 
 #### 2.1 Project Structure
 ```
-techtribes-remix/
+remix/
 ├── app/
 │   ├── routes/
 │   │   ├── _index.tsx          # Home page
@@ -552,8 +552,8 @@ tasks:
   - id: remix-init
     description: Initialize Remix project with Vite template
     commands:
-      - npx create-remix@latest techtribes-remix --template remix-run/remix/templates/vite
-      - cd techtribes-remix && npm install
+      - npx create-remix@latest remix --template remix-run/remix/templates/vite
+      - cd remix && npm install
     output: New Remix project directory
 
   - id: core-dependencies

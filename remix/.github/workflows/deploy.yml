@@ -1,0 +1,51 @@
+name: Build and Deploy Remix
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 */6 * * *'  # Run every 6 hours
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: remix/package-lock.json
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Install Remix dependencies
+        working-directory: remix
+        run: npm ci
+
+      - name: Scrape community data
+        run: npm run scrape
+        continue-on-error: true
+
+      - name: Copy data to Remix public
+        run: |
+          cp site/_data/output.yml remix/public/data/
+          cp data/output.json remix/public/data/ || true
+
+      - name: Build Remix site
+        working-directory: remix
+        run: npm run build:only
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./remix/dist
+          cname: techtribes.fi  # Optional: if using custom domain
