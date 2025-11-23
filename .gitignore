@@ -1,4 +1,5 @@
 node_modules
 site/_data/output.yml
+data/output.json
 _site
 .jekyll-metadata
