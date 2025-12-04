@@ -336,3 +336,19 @@
     - WordPress
   events: https://www.meetup.com/WPHelsinki/
   logo: wordpress-helsinki.png
+- name: Kubernetes and Cloud Native Computing Foundation Finland
+  location: Helsinki, Finland
+  tags:
+    - DevOps
+    - Cloud Computing
+    - Kubernetes
+  events: https://www.meetup.com/kubernetes-finland/
+  logo: kubernetes-finland.png
+- name: Helsinki Data Week
+  location: Helsinki, Finland
+  tags:
+    - Data Science
+    - Data Engineering
+    - AI
+  events: https://www.meetup.com/helsinki-data-week/
+  logo: helsinki-data-week.png
