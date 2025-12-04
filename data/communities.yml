@@ -352,3 +352,10 @@
     - AI
   events: https://www.meetup.com/helsinki-data-week/
   logo: helsinki-data-week.png
+- name: Game Designers of Finland
+  location: Helsinki, Finland
+  tags:
+    - Gaming Industry
+    - Game Design
+  events: https://www.meetup.com/game-designers-finland/
+  logo: game-designers-finland.png
