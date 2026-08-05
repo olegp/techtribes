@@ -118,17 +118,15 @@
     - Go
   events: https://www.meetup.com/Helsinki-Gophers/
   logo: helsinki-gophers.png
-- name: Helsinki HashiCorp User Group
+- name: Platform & Infrastructure Community Finland
   location: Helsinki, Finland
   tags:
-    - HashiCorp
+    - DevOps
     - IaC
-    - Terraform
-    - Vault
-    - Nomad
-    - Consul
-  events: https://www.meetup.com/helsinki-hashicorp-user-group/
-  logo: hashicorp.png
+    - Platform Engineering
+    - Harness Engineering
+  events: https://www.meetup.com/platform-infrastructure-community-finland/
+  logo: picf.png
 - name: Helsinki HN
   location: Helsinki, Finland
   tags:
