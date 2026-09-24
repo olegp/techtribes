@@ -211,3 +211,10 @@ export function eventListNodes(events: CommunityEvent[]): GraphNode[] {
     },
   ];
 }
+
+export const notFoundMeta = () =>
+  pageMeta({
+    title: "Page not found",
+    description: "The page you were looking for doesn't exist.",
+    path: "/404",
+  });

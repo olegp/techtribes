@@ -1,10 +1,11 @@
 import type { ShouldRevalidateFunctionArgs } from "react-router";
 import type { Route } from "./+types/locations.$country.$city";
-import { FilterPage, type FilterPageData } from "~/components/pages/FilterPage";
+import { FilterPage, loadOrNotFound, type FilterPageData } from "~/components/pages/FilterPage";
 import { getScrapeOutput } from "~/lib/data.server";
 import { splitEvents } from "~/lib/events";
 import {
   collectionPageNodes,
+  notFoundMeta,
   communitiesDescription,
   eventListNodes,
   filterStatsLine,
@@ -48,7 +49,11 @@ export function shouldRevalidate({ currentParams, nextParams }: ShouldRevalidate
   return currentParams.country !== nextParams.country || currentParams.city !== nextParams.city;
 }
 
+export const clientLoader = ({ serverLoader }: Route.ClientLoaderArgs) =>
+  loadOrNotFound(serverLoader);
+
 export function meta({ loaderData }: Route.MetaArgs) {
+  if (!loaderData) return notFoundMeta();
   return pageMeta({
     title: `${loaderData.pageTitle} | Techtribes`,
     description: communitiesDescription(

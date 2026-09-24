@@ -3,12 +3,18 @@
  * No React, no Node APIs: shared between loaders, components and unit tests.
  */
 import type { CommunityEvent } from "./types";
-import { collectTags } from "./filter";
 
-/** Lower-case a value and collapse runs of non-alphanumerics into single dashes. */
+/**
+ * Lower-case a value, strip diacritics, spell out "+" and "#" (C++ -> cplusplus,
+ * C# -> csharp) and collapse runs of other non-alphanumerics into single dashes.
+ */
 export function slugify(value: string): string {
   return value
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
     .toLowerCase()
+    .replace(/\+/g, "plus")
+    .replace(/#/g, "sharp")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 }
@@ -30,7 +36,7 @@ export function parseLocation(location: string): ParsedLocation | undefined {
 }
 
 export interface TagCount {
-  /** Canonical display spelling (first spelling encountered wins, like collectTags). */
+  /** Canonical display spelling (first spelling encountered wins, like canonicalTagName). */
   tag: string;
   slug: string;
   count: number;
@@ -38,7 +44,19 @@ export interface TagCount {
 
 /** Distinct tags with their slugs and occurrence counts, most common first. */
 export function collectTagsWithSlugs(events: CommunityEvent[]): TagCount[] {
-  return collectTags(events).map(({ tag, count }) => ({ tag, slug: slugify(tag), count }));
+  const bySlug = new Map<string, TagCount>();
+  for (const event of events) {
+    for (const tag of event.tags ?? []) {
+      const slug = slugify(tag);
+      if (!slug) continue;
+      const existing = bySlug.get(slug);
+      if (existing) existing.count += 1;
+      else bySlug.set(slug, { tag, slug, count: 1 });
+    }
+  }
+  return [...bySlug.values()].sort(
+    (a, b) => b.count - a.count || a.tag.localeCompare(b.tag, "en", { sensitivity: "base" }),
+  );
 }
 
 export interface CityCount {

@@ -7,11 +7,24 @@
  * whose search + tag-filter pills cover discovery within the page; cross-page
  * navigation happens via the breadcrumbs and the header navbar.
  */
-import { Link } from "react-router";
+import { data, Link } from "react-router";
 
 import { EventList } from "~/components/events/EventList";
 import { Button } from "~/components/ui/button";
 import type { CommunityEvent } from "~/lib/types";
+
+/**
+ * Client loader for the filter routes. A mistyped slug is served 404.html, which
+ * then tries to fetch a `.data` file that was never prerendered; report that as
+ * a 404 instead of a generic load error.
+ */
+export async function loadOrNotFound<T>(serverLoader: () => Promise<T>): Promise<T> {
+  try {
+    return await serverLoader();
+  } catch {
+    throw data(null, { status: 404 });
+  }
+}
 
 export interface Crumb {
   label: string;

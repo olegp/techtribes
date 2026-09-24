@@ -18,7 +18,12 @@ describe("slugify", () => {
     ["JavaScript", "javascript"],
     ["Data Science", "data-science"],
     ["Node.js", "node-js"],
-    ["C++", "c"],
+    ["C++", "cplusplus"],
+    ["C#", "csharp"],
+    ["F#", "fsharp"],
+    ["C", "c"],
+    ["Jyväskylä", "jyvaskyla"],
+    ["Åland", "aland"],
     ["  Leading and trailing  ", "leading-and-trailing"],
     ["Multiple---dashes & such", "multiple-dashes-such"],
     ["", ""],
@@ -62,6 +67,14 @@ describe("collectTagsWithSlugs", () => {
       { tag: "frontend", slug: "frontend", count: 1 },
       { tag: "Python", slug: "python", count: 1 },
     ]);
+  });
+
+  it("merges spellings that share a slug", () => {
+    const merged = collectTagsWithSlugs([
+      makeEvent({ tags: ["Node.js"] }),
+      makeEvent({ tags: ["node js"] }),
+    ]);
+    expect(merged).toEqual([{ tag: "Node.js", slug: "node-js", count: 2 }]);
   });
 });
 
