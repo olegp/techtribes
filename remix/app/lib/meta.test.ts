@@ -1,7 +1,15 @@
 import { describe, expect, it } from "vitest";
 import type { MetaDescriptor } from "react-router";
 
-import { eventListNodes, pageMeta } from "~/lib/meta";
+import {
+  collectionPageNodes,
+  communitiesDescription,
+  eventListNodes,
+  filterStatsLine,
+  pageMeta,
+  upcomingEventsPhrase,
+} from "~/lib/meta";
+import { makeEvent } from "../../test/fixtures";
 import type { CommunityEvent } from "~/lib/types";
 import { SITE_URL } from "~/lib/site";
 
@@ -76,9 +84,9 @@ describe("pageMeta", () => {
       (m) => m.tagName === "link" && m.rel === "canonical",
     )?.href;
     expect(homeCanonical).toBe(`${SITE_URL}/`);
-    expect(guideCanonical).toBe(`${SITE_URL}/guide`);
+    expect(guideCanonical).toBe(`${SITE_URL}/guide/`);
     expect(homeCanonical).not.toBe(guideCanonical);
-    expect(byProperty(guideMeta, "og:url")?.content).toBe(`${SITE_URL}/guide`);
+    expect(byProperty(guideMeta, "og:url")?.content).toBe(`${SITE_URL}/guide/`);
   });
 });
 
@@ -166,5 +174,77 @@ describe("eventListNodes", () => {
       unknown
     >[];
     expect(graph.map((node) => node["@type"])).toEqual(["WebSite", "Organization", "ItemList"]);
+  });
+});
+
+describe("upcomingEventsPhrase", () => {
+  it.each([
+    [0, "0 upcoming events"],
+    [1, "1 upcoming event"],
+    [2, "2 upcoming events"],
+  ])("upcomingEventsPhrase(%i) -> %j", (count, expected) => {
+    expect(upcomingEventsPhrase(count)).toBe(expected);
+  });
+});
+
+describe("filterStatsLine", () => {
+  it("shows both counts when there are upcoming events", () => {
+    expect(filterStatsLine(4, 12)).toBe("4 communities · 12 upcoming events");
+  });
+
+  it("uses the singular community noun", () => {
+    expect(filterStatsLine(1, 1)).toBe("1 community · 1 upcoming event");
+  });
+
+  it("drops the upcoming part when there is nothing upcoming", () => {
+    expect(filterStatsLine(3, 0)).toBe("3 communities");
+  });
+});
+
+describe("communitiesDescription", () => {
+  it("builds the full sentence with plurals and an upcoming clause", () => {
+    expect(communitiesDescription(4, "Turku, Finland", 1)).toBe(
+      "Discover 4 active tech communities and meetups in Turku, Finland with 1 upcoming event.",
+    );
+  });
+
+  it("uses singular nouns for a single community", () => {
+    expect(communitiesDescription(1, "Finland", 2)).toBe(
+      "Discover 1 active tech community and meetup in Finland with 2 upcoming events.",
+    );
+  });
+
+  it("replaces tech with the topic for tag pages", () => {
+    expect(communitiesDescription(6, "Finland", 3, "AI")).toBe(
+      "Discover 6 active AI communities and meetups in Finland with 3 upcoming events.",
+    );
+    expect(communitiesDescription(1, "Finland", 0, "Data Engineering")).toBe(
+      "Discover 1 active Data Engineering community and meetup in Finland.",
+    );
+  });
+
+  it("omits the upcoming clause when nothing is upcoming", () => {
+    expect(communitiesDescription(7, "Finland", 0)).toBe(
+      "Discover 7 active tech communities and meetups in Finland.",
+    );
+  });
+});
+
+describe("collectionPageNodes", () => {
+  const community = makeEvent();
+
+  it("describes the page as a CollectionPage listing its communities", () => {
+    const [node] = collectionPageNodes("Tech communities in Turku", "/locations/finland/turku", [
+      community,
+    ]);
+    expect(node["@type"]).toBe("CollectionPage");
+    expect(node.url).toBe(`${SITE_URL}/locations/finland/turku/`);
+    const mainEntity = node.mainEntity as Record<string, unknown>;
+    expect(mainEntity.numberOfItems).toBe(1);
+    const items = mainEntity.itemListElement as Record<string, unknown>[];
+    const org = items[0].item as Record<string, unknown>;
+    expect(org["@type"]).toBe("Organization");
+    expect(org.name).toBe(community.name);
+    expect(org.url).toBe(community.site);
   });
 });

@@ -1,28 +1,26 @@
 import { Calendar, MapPin, Users } from "lucide-react";
+import { Link } from "react-router";
 
 import { Badge } from "~/components/ui/badge";
 import { Card } from "~/components/ui/card";
 import { eventIsoDate, logoUrl } from "~/lib/events";
+import { locationUrl, parseLocation, slugify, tagUrl } from "~/lib/taxonomy";
 import type { CommunityEvent } from "~/lib/types";
 import { cn } from "~/lib/utils";
 
 export interface CommunityCardProps {
   event: CommunityEvent;
-  /** Tags currently selected in the filter UI (rendered as pressed). */
-  activeTags?: string[];
-  /** When provided, tags become toggle buttons; otherwise they are plain pills. */
-  onTagClick?: (tag: string) => void;
 }
 
 /** Shared look of a tag pill. */
 const TAG_CLASS =
   "h-auto rounded-lg border-0 bg-transparent px-2.5 py-1 text-xs font-medium text-foreground ring-1 ring-blue-500/50";
 
-export function CommunityCard({ event, activeTags = [], onTagClick }: CommunityCardProps) {
+export function CommunityCard({ event }: CommunityCardProps) {
   const link = event.site ?? event.events;
   const logo = logoUrl(event.logo);
   const isoDate = eventIsoDate(event);
-  const active = new Set(activeTags.map((tag) => tag.toLowerCase()));
+  const loc = parseLocation(event.location);
 
   return (
     <Card className="group gap-0 overflow-hidden rounded-xl py-0 transition-all duration-200 hover:shadow-lg hover:ring-primary/20">
@@ -82,7 +80,16 @@ export function CommunityCard({ event, activeTags = [], onTagClick }: CommunityC
               <div className="flex flex-wrap gap-x-3 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="size-4 opacity-70" aria-hidden="true" />
-                  {event.eventLocation ?? event.location}
+                  {loc ? (
+                    <Link
+                      to={locationUrl(slugify(loc.country), slugify(loc.city))}
+                      className="transition-colors hover:text-foreground hover:underline"
+                    >
+                      {event.eventLocation ?? event.location}
+                    </Link>
+                  ) : (
+                    (event.eventLocation ?? event.location)
+                  )}
                 </div>
                 {event.members ? (
                   <div className="flex items-center gap-1.5">
@@ -102,34 +109,20 @@ export function CommunityCard({ event, activeTags = [], onTagClick }: CommunityC
             {event.tags?.length ? (
               <div className="w-full md:w-auto">
                 <div className="flex flex-wrap gap-1.5">
-                  {event.tags.map((tag) =>
-                    onTagClick ? (
+                  {event.tags.map((tag) => (
+                    <Link
+                      key={tag}
+                      to={tagUrl(slugify(tag))}
+                      aria-label={`Communities tagged ${tag}`}
+                    >
                       <Badge
-                        key={tag}
-                        asChild
                         variant="secondary"
-                        className={cn(
-                          TAG_CLASS,
-                          "cursor-pointer transition-colors hover:bg-foreground/10",
-                          active.has(tag.toLowerCase()) &&
-                            "bg-primary/10 text-primary ring-primary/30 hover:bg-primary/15",
-                        )}
+                        className={cn(TAG_CLASS, "transition-colors hover:bg-foreground/10")}
                       >
-                        <button
-                          type="button"
-                          aria-pressed={active.has(tag.toLowerCase())}
-                          aria-label={`Filter by ${tag}`}
-                          onClick={() => onTagClick(tag)}
-                        >
-                          {tag}
-                        </button>
-                      </Badge>
-                    ) : (
-                      <Badge key={tag} variant="secondary" className={TAG_CLASS}>
                         {tag}
                       </Badge>
-                    ),
-                  )}
+                    </Link>
+                  ))}
                 </div>
               </div>
             ) : null}

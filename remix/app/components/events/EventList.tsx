@@ -206,12 +206,7 @@ export function EventList({ upcoming, past }: EventListProps) {
             {filteredUpcoming.length ? (
               <div className="space-y-4">
                 {filteredUpcoming.map((event) => (
-                  <CommunityCard
-                    key={eventKey(event)}
-                    event={event}
-                    activeTags={activeTags}
-                    onTagClick={toggleTag}
-                  />
+                  <CommunityCard key={eventKey(event)} event={event} />
                 ))}
               </div>
             ) : (
@@ -231,12 +226,7 @@ export function EventList({ upcoming, past }: EventListProps) {
             {filteredPast.length ? (
               <div className="space-y-4">
                 {filteredPast.map((event) => (
-                  <CommunityCard
-                    key={eventKey(event)}
-                    event={event}
-                    activeTags={activeTags}
-                    onTagClick={toggleTag}
-                  />
+                  <CommunityCard key={eventKey(event)} event={event} />
                 ))}
               </div>
             ) : (

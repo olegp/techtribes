@@ -25,7 +25,49 @@ export interface PageMetaOptions {
 /** A JSON-LD node inside the page's @graph. */
 type GraphNode = Record<string, unknown> & { "@type": string };
 
+// --- Count phrases (shared by filter-page stats lines and descriptions) ---
+
+/** "0 upcoming events" / "1 upcoming event" / "2 upcoming events". */
+export function upcomingEventsPhrase(count: number): string {
+  return `${count} upcoming event${count === 1 ? "" : "s"}`;
+}
+
+/** Muted stats line under a filter page's heading, e.g. "4 communities · 12 upcoming events".
+ * The upcoming part is omitted when there is nothing upcoming. Deliberately no member counts:
+ * summing members across communities is meaningless given platform overlap. */
+export function filterStatsLine(communities: number, upcoming: number): string {
+  const noun = communities === 1 ? "community" : "communities";
+  const base = `${communities} ${noun}`;
+  return upcoming > 0 ? `${base} · ${upcomingEventsPhrase(upcoming)}` : base;
+}
+
+/** Description sentence for tag/location pages, e.g. "Discover 4 active tech communities and
+ * meetups in Turku, Finland with 1 upcoming event." When `topic` is given it replaces "tech"
+ * ("Discover 6 active AI communities …"). The upcoming clause is omitted when there is nothing
+ * upcoming; singular/plural are handled throughout. */
+export function communitiesDescription(
+  communityCount: number,
+  place: string,
+  upcomingCount: number,
+  topic?: string,
+): string {
+  const communityNoun = communityCount === 1 ? "community" : "communities";
+  const meetupNoun = communityCount === 1 ? "meetup" : "meetups";
+  const kind = topic ? `${topic} ` : "tech ";
+  const upcoming = upcomingCount > 0 ? ` with ${upcomingEventsPhrase(upcomingCount)}` : "";
+  return `Discover ${communityCount} active ${kind}${communityNoun} and ${meetupNoun} in ${place}${upcoming}.`;
+}
+
 const OG_IMAGE_URL = `${SITE_URL}${OG_IMAGE_PATH}`;
+
+/**
+ * Every page is prerendered as a directory-style index.html, so static hosts
+ * serve `path` only after redirecting to `path/`. Canonical/OG URLs therefore
+ * use the trailing-slash form — the URL a visitor (and search engine) ends up on.
+ */
+export function canonicalPath(path: string): string {
+  return path === "/" || path.endsWith("/") ? path : `${path}/`;
+}
 
 /** Build the complete list of meta descriptors for a page. */
 export function pageMeta({
@@ -34,7 +76,7 @@ export function pageMeta({
   path,
   graph = [],
 }: PageMetaOptions): MetaDescriptor[] {
-  const url = `${SITE_URL}${path}`;
+  const url = `${SITE_URL}${canonicalPath(path)}`;
   return [
     { title },
     { name: "description", content: description },
@@ -95,6 +137,37 @@ export function pageMeta({
 }
 
 /**
+ * @graph nodes describing a filter page as a schema.org CollectionPage whose
+ * item list is the set of listed communities.
+ */
+export function collectionPageNodes(
+  name: string,
+  path: string,
+  communities: CommunityEvent[],
+): GraphNode[] {
+  return [
+    {
+      "@type": "CollectionPage",
+      name,
+      url: `${SITE_URL}${canonicalPath(path)}`,
+      mainEntity: {
+        "@type": "ItemList",
+        numberOfItems: communities.length,
+        itemListElement: communities.map((event, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Organization",
+            name: event.name,
+            url: event.site ?? event.events,
+          },
+        })),
+      },
+    },
+  ];
+}
+
+/**
  * @graph nodes for a list of community events, so search engines can read the
  * dates (the visible dd/mm/yyyy is ambiguous) and show event rich results.
  *
@@ -138,3 +211,10 @@ export function eventListNodes(events: CommunityEvent[]): GraphNode[] {
     },
   ];
 }
+
+export const notFoundMeta = () =>
+  pageMeta({
+    title: "Page not found",
+    description: "The page you were looking for doesn't exist.",
+    path: "/404",
+  });

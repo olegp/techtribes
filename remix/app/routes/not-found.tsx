@@ -2,14 +2,9 @@ import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router";
 
 import { Button } from "~/components/ui/button";
-import { pageMeta } from "~/lib/meta";
+import { notFoundMeta } from "~/lib/meta";
 
-export const meta = () =>
-  pageMeta({
-    title: "Page not found",
-    description: "The page you were looking for doesn't exist.",
-    path: "/404",
-  });
+export const meta = notFoundMeta;
 
 /**
  * Catch-all route. It is pre-rendered at /404 (copied to 404.html for GitHub

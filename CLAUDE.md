@@ -90,12 +90,14 @@ Communities in `data/communities.yml` require:
 - `site/` - Legacy Jekyll site source (kept for rollback; see `TODO.md`)
 - `site/_data/output.yml` - Generated event data for the legacy Jekyll site
 - `remix/` - The deployed React Router site
-  - `remix/app/routes/` - Route modules: `home.tsx` (/), `guide.tsx` (/guide), `feed[.]xml.ts` (resource route, /feed.xml), `not-found.tsx` (catch-all, prerendered as /404 and copied to 404.html)
+  - `remix/app/routes.ts` - Explicit route config (framework mode does NOT auto-discover files in `app/routes/` here; new route files must be added to this list)
+  - `remix/app/routes/` - Route modules: `home.tsx` (/), `guide.tsx` (/guide), `feed[.]xml.ts` (resource route, /feed.xml), `sitemap[.]xml.ts` (resource route, /sitemap.xml), `tags.tsx` (/tags index), `tags.$tag.tsx` (/tags/:tag), `locations.tsx` (/locations index), `locations.$country.tsx`, `locations.$country.$city.tsx`, `not-found.tsx` (catch-all, prerendered as /404 and copied to 404.html)
   - `remix/app/components/layout/` - Header, Footer, ThemeToggle
   - `remix/app/components/cards/` - `CommunityCard.tsx`
   - `remix/app/components/events/` - `EventList.tsx`
+  - `remix/app/components/pages/` - `FilterPage.tsx` (shared renderer for the tag/location leaf pages)
   - `remix/app/components/ui/` - shadcn/ui primitives (button, badge, card, input, tooltip)
-  - `remix/app/lib/` - `types.ts`, `site.ts` (site constants), `events.ts` (date/event helpers), `data.server.ts` (reads `../data/output.json`), `meta.ts` (SEO/meta helpers), `filter.ts`, `feed.ts` (RSS/Atom feed generation), `content.server.ts` (loads/renders `content/guide.md`)
+  - `remix/app/lib/` - `types.ts`, `site.ts` (site constants), `events.ts` (date/event helpers), `data.server.ts` (reads `../data/output.json`), `meta.ts` (SEO/meta + count-phrase helpers), `filter.ts` (client-side search/tag filtering), `taxonomy.ts` (tag/location slugs, grouping, URL builders), `sitemap.ts` (sitemap XML builder), `feed.ts` (RSS/Atom feed generation), `prerender-paths.server.ts` (enumerates all tag/location page paths from output.json; shared by the prerender list in `react-router.config.ts` and the sitemap route), `content.server.ts` (loads/renders `content/guide.md`)
   - `remix/app/content/guide.md` - Markdown source for the guide page
   - `remix/app/styles/prose.css` - Prose styling for rendered markdown
   - `remix/scripts/postbuild.ts` - Post-build step: copies `404/index.html` to `404.html`, writes `.nojekyll`, removes stray SPA files
